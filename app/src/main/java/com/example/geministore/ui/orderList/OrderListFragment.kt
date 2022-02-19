@@ -3,13 +3,18 @@ package com.example.geministore.ui.orderList
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.geministore.R
 import com.example.geministore.databinding.FragmentOrderListBinding
+import com.example.geministore.ui.order.OrderFragment
 
 class OrderListFragment : Fragment() {
 
@@ -45,16 +50,8 @@ class OrderListFragment : Fragment() {
         homeViewModel.orderList.observe(viewLifecycleOwner) {
             orderList.adapter = OrderRecyclerAdapter(it)
         }
-
-
-
-
-
         return root
     }
-
-
-
 
 
 

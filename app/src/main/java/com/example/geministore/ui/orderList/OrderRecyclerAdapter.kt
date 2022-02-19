@@ -1,15 +1,20 @@
 package com.example.geministore.ui.orderList
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.R
 import com.example.geministore.data.retrofit.DataModelOrderList
+import com.example.geministore.ui.order.OrderFragment
 
 
 class OrderRecyclerAdapter(private val ArrayModelOrderList: Array<DataModelOrderList>) :
@@ -38,8 +43,11 @@ class OrderRecyclerAdapter(private val ArrayModelOrderList: Array<DataModelOrder
         holder.itemView.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    val idOrder = view.findViewById<TextView>(R.id.id_order)
-                    Log.d("Click", idOrder.text as String)
+
+                    val bundle = bundleOf(Pair("idOrder",ArrayModelOrderList[position].getIdOrder()),
+                        Pair("date",ArrayModelOrderList[position].getDate()))
+
+                    view.findNavController().navigate(R.id.nav_order,bundle)
                 }
             }
             true

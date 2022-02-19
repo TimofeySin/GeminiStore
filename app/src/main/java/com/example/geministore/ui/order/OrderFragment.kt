@@ -1,6 +1,7 @@
 package com.example.geministore.ui.order
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,16 +18,22 @@ class OrderFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val slideshowViewModel =
             ViewModelProvider(this)[OrderViewModel::class.java]
 
         _binding = FragmentOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val bundle = arguments
+        bundle?.let {
+            val idOrder = it.getString("idOrder")
+            val date = it.getString("date")
+            Log.d("Bundel", "$idOrder/$date") }
 
         val textView: TextView = binding.textSlideshow
         slideshowViewModel.text.observe(viewLifecycleOwner) {
@@ -34,6 +41,8 @@ class OrderFragment : Fragment() {
         }
         return root
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
