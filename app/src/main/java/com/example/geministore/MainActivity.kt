@@ -1,17 +1,21 @@
 package com.example.geministore
 
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_0
+import android.view.KeyEvent.KEYCODE_9
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.example.geministore.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +45,14 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+       // if (keyCode in KEYCODE_0..KEYCODE_9 ) {
+            Log.d("Click", event!!.unicodeChar.toChar().toString() + " / " +keyCode.toString())
+      //  }
+
+
+        return super.onKeyDown(keyCode, event)
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)

@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/fragment_order.xml" value="0.25833333333333336" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order_item.xml" value="0.33" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/recycler_view_holder.xml" value="0.36666666666666664" />
       </map>

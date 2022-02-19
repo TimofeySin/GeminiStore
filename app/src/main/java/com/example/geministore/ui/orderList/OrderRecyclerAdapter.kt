@@ -1,4 +1,4 @@
-package com.example.geministore.ui.home
+package com.example.geministore.ui.orderList
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.R
+import com.example.geministore.data.retrofit.DataModelOrderList
 
 
-class OrderRecyclerAdapter(private val orderArray: Array<List<String>>) :
+class OrderRecyclerAdapter(private val ArrayModelOrderList: Array<DataModelOrderList>) :
     RecyclerView.Adapter<OrderRecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,28 +30,23 @@ class OrderRecyclerAdapter(private val orderArray: Array<List<String>>) :
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.idOrder.text = orderArray[position][0]
-        holder.date.text = orderArray[position][1]
-        holder.manger.text = orderArray[position][2]
-        holder.deliveryTime.text = orderArray[position][3]
+        holder.idOrder.text = ArrayModelOrderList[position].getIdOrder()
+        holder.date.text = ArrayModelOrderList[position].getDate()
+        holder.manger.text = ArrayModelOrderList[position].getManger()
+        holder.deliveryTime.text = ArrayModelOrderList[position].getDeliveryTime()
 
         holder.itemView.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    val id_order = view.findViewById<TextView>(R.id.id_order)
-                    Log.d("Click", id_order.text as String)
-                }
-                MotionEvent.ACTION_UP -> {
-                    Log.d("Click","Up")
+                    val idOrder = view.findViewById<TextView>(R.id.id_order)
+                    Log.d("Click", idOrder.text as String)
                 }
             }
             true
         }
-
-
     }
 
     override fun getItemCount(): Int {
-        return orderArray.size
+        return ArrayModelOrderList.size
     }
 }
