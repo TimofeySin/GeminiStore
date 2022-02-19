@@ -1,5 +1,6 @@
 package com.example.geministore.data.retrofit
 
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.http.*
 

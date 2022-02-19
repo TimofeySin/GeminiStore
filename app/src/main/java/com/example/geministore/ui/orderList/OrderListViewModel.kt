@@ -1,5 +1,6 @@
 package com.example.geministore.ui.orderList
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import com.example.geministore.data.retrofit.DataModelOrderList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class OrderListViewModel : ViewModel() {
 
@@ -27,13 +29,19 @@ class OrderListViewModel : ViewModel() {
         val coroutineScore = CoroutineScope(Dispatchers.IO)
         coroutineScore.launch {
             val apiService = Common.makeRetrofitService
-            CoroutineScope(Dispatchers.IO).launch {
-                launch (Dispatchers.Main) {
-                    val response = apiService.getOrderListAsync()
-                   _orderList.value  = response
-                   _refreshStatus.value = false
+            CoroutineScope(Dispatchers.Main).launch {
+
+                   try {
+                       val response = apiService.getOrderListAsync()
+                       _orderList.value  = response
+                       _refreshStatus.value = false
+                   }catch (e: IOException) {
+                       Log.d("crash",e.toString())
+                   }
+
+
                 }
             }
         }
     }
-}
+

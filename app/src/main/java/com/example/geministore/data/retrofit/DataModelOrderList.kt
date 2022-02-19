@@ -7,7 +7,7 @@ class DataModelOrderList {
 
     @SerializedName("idOrder")
     @Expose
-    private val idOrder: String? = ""
+    private val idOrder: String = ""
 
     fun getIdOrder(): String? {
         return idOrder
@@ -15,7 +15,7 @@ class DataModelOrderList {
 
     @SerializedName("date")
     @Expose
-    private val date: String? = ""
+    private val date: String = ""
 
     fun getDate(): String? {
         return date
@@ -23,7 +23,7 @@ class DataModelOrderList {
 
     @SerializedName("manger")
     @Expose
-    private val manger: String? = ""
+    private val manger: String = ""
 
     fun getManger(): String? {
         return manger
@@ -31,7 +31,7 @@ class DataModelOrderList {
 
     @SerializedName("deliveryTime")
     @Expose
-    private val deliveryTime: String? = ""
+    private val deliveryTime: String = ""
 
     fun getDeliveryTime(): String? {
         return deliveryTime
@@ -39,7 +39,7 @@ class DataModelOrderList {
 
     @SerializedName("number")
     @Expose
-    private val number: String? = ""
+    private val number: String = ""
 
     fun getNumber(): String? {
         return number
@@ -47,7 +47,7 @@ class DataModelOrderList {
 
     @SerializedName("magazin")
     @Expose
-    private val magazin: String? = ""
+    private val magazin: String = ""
 
     fun getMagazin(): String? {
         return magazin

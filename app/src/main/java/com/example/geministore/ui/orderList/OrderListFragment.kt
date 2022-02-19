@@ -12,9 +12,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.geministore.R
 import com.example.geministore.databinding.FragmentOrderListBinding
-import com.example.geministore.ui.order.OrderFragment
+
 
 class OrderListFragment : Fragment() {
 
@@ -29,25 +28,25 @@ class OrderListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
+        val orderListViewModel =
             ViewModelProvider(this)[OrderListViewModel::class.java]
 
         _binding = FragmentOrderListBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        homeViewModel.fetchData()
+        orderListViewModel.fetchData()
 
        val swipeRefresh = binding.swiperefresh
 
         swipeRefresh.setOnRefreshListener {
-            homeViewModel.fetchData()
-            homeViewModel.refreshStatus.observe(viewLifecycleOwner) {
+            orderListViewModel.fetchData()
+            orderListViewModel.refreshStatus.observe(viewLifecycleOwner) {
             swipeRefresh.isRefreshing = it
             }
         }
 
         val orderList: RecyclerView = binding.orderList
         orderList.layoutManager = LinearLayoutManager(context)
-        homeViewModel.orderList.observe(viewLifecycleOwner) {
+        orderListViewModel.orderList.observe(viewLifecycleOwner) {
             orderList.adapter = OrderRecyclerAdapter(it)
         }
         return root

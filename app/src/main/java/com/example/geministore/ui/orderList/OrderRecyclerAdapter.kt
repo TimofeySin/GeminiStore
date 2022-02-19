@@ -14,7 +14,7 @@ import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.R
 import com.example.geministore.data.retrofit.DataModelOrderList
-import com.example.geministore.ui.order.OrderFragment
+
 
 
 class OrderRecyclerAdapter(private val ArrayModelOrderList: Array<DataModelOrderList>) :

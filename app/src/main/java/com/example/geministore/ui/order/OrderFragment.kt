@@ -35,10 +35,10 @@ class OrderFragment : Fragment() {
             val date = it.getString("date")
             Log.d("Bundel", "$idOrder/$date") }
 
-        val textView: TextView = binding.textSlideshow
-        slideshowViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textSlideshow
+//        slideshowViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         return root
     }
 
