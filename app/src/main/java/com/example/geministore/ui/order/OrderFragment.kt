@@ -5,10 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.databinding.FragmentOrderBinding
+import com.example.geministore.ui.orderList.OrderListViewModel
+
 
 class OrderFragment : Fragment() {
 
@@ -24,8 +27,9 @@ class OrderFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val slideshowViewModel =
+        val orderViewModel =
             ViewModelProvider(this)[OrderViewModel::class.java]
+
 
         _binding = FragmentOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -33,12 +37,18 @@ class OrderFragment : Fragment() {
         bundle?.let {
             val idOrder = it.getString("idOrder")
             val date = it.getString("date")
-            Log.d("Bundel", "$idOrder/$date") }
+            Log.d("Bundel", "$idOrder/$date")
+            orderViewModel.fetchData(idOrder,date)
+        }
 
-//        val textView: TextView = binding.textSlideshow
-//        slideshowViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
+
+
+
+        val orderGoods: RecyclerView = binding.orderGoods
+        orderGoods.layoutManager = LinearLayoutManager(context)
+        orderViewModel.orderGoods.observe(viewLifecycleOwner) {
+            orderGoods.adapter = OrderRecyclerAdapter(it)
+        }
         return root
     }
 

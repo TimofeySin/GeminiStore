@@ -3,12 +3,9 @@ package com.example.geministore.ui.orderList
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +33,6 @@ class OrderListFragment : Fragment() {
         orderListViewModel.fetchData()
 
        val swipeRefresh = binding.swiperefresh
-
         swipeRefresh.setOnRefreshListener {
             orderListViewModel.fetchData()
             orderListViewModel.refreshStatus.observe(viewLifecycleOwner) {
@@ -47,7 +43,7 @@ class OrderListFragment : Fragment() {
         val orderList: RecyclerView = binding.orderList
         orderList.layoutManager = LinearLayoutManager(context)
         orderListViewModel.orderList.observe(viewLifecycleOwner) {
-            orderList.adapter = OrderRecyclerAdapter(it)
+            orderList.adapter = OrderListRecyclerAdapter(it)
         }
         return root
     }

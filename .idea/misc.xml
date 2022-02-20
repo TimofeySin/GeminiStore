@@ -8,8 +8,12 @@
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/fragment_order.xml" value="0.25833333333333336" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/fragment_order_list.xml" value="0.2552083333333333" />
+        <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/goods.xml" value="0.25" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/nav_header_main.xml" value="0.19479166666666667" />
+        <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order.xml" value="0.18697916666666667" />
+        <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order_goods_item.xml" value="0.410958904109589" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order_item.xml" value="0.33" />
+        <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order_list_item.xml" value="0.18697916666666667" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/recycler_view_holder.xml" value="0.36666666666666664" />
       </map>
     </option>

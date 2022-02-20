@@ -1,4 +1,4 @@
-package com.example.geministore.data.retrofit
+package com.example.geministore.ui.orderList
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -9,7 +9,7 @@ class DataModelOrderList {
     @Expose
     private val idOrder: String = ""
 
-    fun getIdOrder(): String? {
+    fun getIdOrder(): String {
         return idOrder
     }
 
@@ -17,7 +17,7 @@ class DataModelOrderList {
     @Expose
     private val date: String = ""
 
-    fun getDate(): String? {
+    fun getDate(): String {
         return date
     }
 
@@ -25,7 +25,7 @@ class DataModelOrderList {
     @Expose
     private val manger: String = ""
 
-    fun getManger(): String? {
+    fun getManger(): String {
         return manger
     }
 
@@ -33,7 +33,7 @@ class DataModelOrderList {
     @Expose
     private val deliveryTime: String = ""
 
-    fun getDeliveryTime(): String? {
+    fun getDeliveryTime(): String {
         return deliveryTime
     }
 
@@ -41,7 +41,7 @@ class DataModelOrderList {
     @Expose
     private val number: String = ""
 
-    fun getNumber(): String? {
+    fun getNumber(): String {
         return number
     }
 
@@ -49,7 +49,7 @@ class DataModelOrderList {
     @Expose
     private val magazin: String = ""
 
-    fun getMagazin(): String? {
+    fun getMagazin(): String {
         return magazin
     }
 

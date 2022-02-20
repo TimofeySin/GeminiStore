@@ -1,15 +1,17 @@
 package com.example.geministore.ui.orderList
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.geministore.data.retrofit.Common
-import com.example.geministore.data.retrofit.DataModelOrderList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.IOException
+import retrofit2.HttpException
+
+
 
 class OrderListViewModel : ViewModel() {
 
@@ -26,22 +28,24 @@ class OrderListViewModel : ViewModel() {
 
 
     fun fetchData() {
-        val coroutineScore = CoroutineScope(Dispatchers.IO)
-        coroutineScore.launch {
-            val apiService = Common.makeRetrofitService
-            CoroutineScope(Dispatchers.Main).launch {
-
-                   try {
-                       val response = apiService.getOrderListAsync()
-                       _orderList.value  = response
-                       _refreshStatus.value = false
-                   }catch (e: IOException) {
-                       Log.d("crash",e.toString())
-                   }
-
-
-                }
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val apiService = Common.makeRetrofitService
+                val response = apiService.getOrderListAsync()
+                _orderList.value = response
+                _refreshStatus.value = false
+            } catch  (notUseFullException: Exception) {
+                val useFullException = wrapToBeTraceable(notUseFullException)
+               Log.d("crash",useFullException.printStackTrace().toString())   // or whatever logging
             }
         }
     }
+    private fun wrapToBeTraceable(throwable: Throwable): Throwable {
+        if (throwable is HttpException) {
+            return Exception("${throwable.response()}", throwable)
+        }
+        return throwable
+    }
+
+}
 

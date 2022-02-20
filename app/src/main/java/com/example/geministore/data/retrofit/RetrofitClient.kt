@@ -1,8 +1,10 @@
 package com.example.geministore.data.retrofit
 
 import okhttp3.*
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Type
 
 
 object RetrofitClient {
@@ -20,7 +22,9 @@ object RetrofitClient {
         .build()
 
 
+
     fun getClient(baseUrl: String): Retrofit {
+
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
