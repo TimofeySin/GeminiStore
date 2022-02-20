@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,8 +42,14 @@ class OrderFragment : Fragment() {
             orderViewModel.fetchData(idOrder,date)
         }
 
-
-
+        val idOrder : TextView =binding.idOrder
+        orderViewModel.idOrder.observe(viewLifecycleOwner){ idOrder.text = it}
+        val deliveryTime : TextView =binding.deliveryTime
+        orderViewModel.deliveryTime.observe(viewLifecycleOwner){ deliveryTime.text = it}
+        val manger : TextView =binding.manger
+        orderViewModel.manger.observe(viewLifecycleOwner){ manger.text = it}
+        val date : TextView =binding.date
+        orderViewModel.idOrder.observe(viewLifecycleOwner){ date.text = it}
 
         val orderGoods: RecyclerView = binding.orderGoods
         orderGoods.layoutManager = LinearLayoutManager(context)

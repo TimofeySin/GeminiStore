@@ -19,6 +19,22 @@ class OrderViewModel : ViewModel() {
     val orderGoods: LiveData<Array<DataModelOrderGoods>> = _orderGoods
 
 
+    private val _deliveryTime = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val deliveryTime: LiveData<String> = _deliveryTime
+    private val _manger = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val manger: LiveData<String> = _manger
+    private val _date = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val date: LiveData<String> = _date
+    private val _idOrder = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val idOrder: LiveData<String> = _idOrder
 
 
     fun fetchData(idOrder:String?,dateOrder:String?)  {
@@ -27,6 +43,11 @@ class OrderViewModel : ViewModel() {
                 val apiService = Common.makeRetrofitService
                 val response = apiService.getOrderAsync(idOrder,dateOrder)
                 _orderGoods.value = response.getGoods()
+                _deliveryTime.value = response.getDeliveryTime()
+                _manger.value = response.getManger()
+                _date.value = response.getDate()
+                _idOrder.value = response.getIdOrder()
+
 
             } catch  (notUseFullException: Exception) {
                 val useFullException = wrapToBeTraceable(notUseFullException)
