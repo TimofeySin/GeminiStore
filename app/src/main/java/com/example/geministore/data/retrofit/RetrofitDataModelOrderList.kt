@@ -1,9 +1,9 @@
-package com.example.geministore.ui.orderList
+package com.example.geministore.data.retrofit
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class DataModelOrderList {
+class RetrofitDataModelOrderList {
 
     @SerializedName("idOrder")
     @Expose

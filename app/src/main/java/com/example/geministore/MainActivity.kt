@@ -1,17 +1,15 @@
 package com.example.geministore
 
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.geministore.databinding.ActivityMainBinding
+import com.example.geministore.ui.BaseFragment
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
@@ -19,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+   // private var targetFragmentOrder : Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,22 +43,15 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-       // if (keyCode in KEYCODE_0..KEYCODE_9 ) {
-            Log.d("Click", event!!.unicodeChar.toChar().toString() + " / " +keyCode.toString())
-      //  }
-
-
-        return super.onKeyDown(keyCode, event)
-    }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
+        supportFragmentManager.let{ itMain ->
+            itMain.fragments.last().childFragmentManager.let{
+                val currentFragment : BaseFragment = it.fragments.last() as BaseFragment
+                  currentFragment.keyDown(keyCode,event)
+                return super.onKeyDown(keyCode, event)
+            }
+        }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
 }

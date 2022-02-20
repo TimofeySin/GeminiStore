@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.R
+import com.example.geministore.data.retrofit.RetrofitDataModelOrderGoods
 
 
-class OrderRecyclerAdapter(private val arrayModelOrderGoods: Array<DataModelOrderGoods>) :
+class OrderRecyclerAdapter(private val arrayModelOrderGoodRetrofits: Array<RetrofitDataModelOrderGoods>) :
     RecyclerView.Adapter<OrderRecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameGoods : TextView = itemView.findViewById(R.id.namegoods)
         val weight : TextView = itemView.findViewById(R.id.weight)
-
-
+        val id : TextView = itemView.findViewById(R.id.id)
+        val quantity : TextView = itemView.findViewById(R.id.quantity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -27,13 +28,14 @@ class OrderRecyclerAdapter(private val arrayModelOrderGoods: Array<DataModelOrde
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.nameGoods.text = arrayModelOrderGoods[position].getNameGoods()
-        holder.weight.text = arrayModelOrderGoods[position].getWeight()
-
+        holder.nameGoods.text = arrayModelOrderGoodRetrofits[position].getNameGoods()
+        holder.weight.text = arrayModelOrderGoodRetrofits[position].getWeight()
+        holder.id.text = arrayModelOrderGoodRetrofits[position].getId().toString()
+       // holder.quantity.text = arrayModelOrderGoodRetrofits[position].getQuantity().toString()
     }
 
     override fun getItemCount(): Int {
-        return arrayModelOrderGoods.size
+        return arrayModelOrderGoodRetrofits.size
     }
 
 

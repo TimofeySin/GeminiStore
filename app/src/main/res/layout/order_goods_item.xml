@@ -2,7 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TextView" />
     <TextView
         android:id="@+id/weight"
         android:layout_width="match_parent"
@@ -16,4 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="TextView" />
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="0" />
 </LinearLayout>

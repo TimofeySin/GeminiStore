@@ -1,33 +1,10 @@
 package com.example.geministore.ui.order
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.example.geministore.data.retrofit.RetrofitDataModelCodes
 
-class DataModelOrderGoods  {
-
-    @SerializedName("namegoods")
-    @Expose
-    private val nameGoods: String = ""
-
-    fun getNameGoods(): String {
-        return nameGoods
-    }
-
-    @SerializedName("weight")
-    @Expose
-    private val weight: String = ""
-
-    fun getWeight(): String {
-        return weight
-    }
-
-
-    @SerializedName("id")
-    @Expose
-    private val id: Int = 0
-
-    fun getId(): Int {
-        return id
-    }
-
+class DataModelOrderGoods {
+     val nameGoods: String = ""
+     val weight: String = ""
+     val id: Int = 0
+     private val codes: Array<DataModelCodes> = arrayOf(DataModelCodes())
 }

@@ -10,9 +10,10 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.R
+import com.example.geministore.data.retrofit.RetrofitDataModelOrderList
 
 
-class OrderListRecyclerAdapter(private val arrayModelOrderList: Array<DataModelOrderList>) :
+class OrderListRecyclerAdapter(private val arrayModelOrderListRetrofit: Array<RetrofitDataModelOrderList>) :
     RecyclerView.Adapter<OrderListRecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -30,17 +31,17 @@ class OrderListRecyclerAdapter(private val arrayModelOrderList: Array<DataModelO
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.idOrder.text = arrayModelOrderList[position].getIdOrder()
-        holder.date.text = arrayModelOrderList[position].getDate()
-        holder.manger.text = arrayModelOrderList[position].getManger()
-        holder.deliveryTime.text = arrayModelOrderList[position].getDeliveryTime()
+        holder.idOrder.text = arrayModelOrderListRetrofit[position].getIdOrder()
+        holder.date.text = arrayModelOrderListRetrofit[position].getDate()
+        holder.manger.text = arrayModelOrderListRetrofit[position].getManger()
+        holder.deliveryTime.text = arrayModelOrderListRetrofit[position].getDeliveryTime()
 
         holder.itemView.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
 
-                    val bundle = bundleOf(Pair("idOrder",arrayModelOrderList[position].getIdOrder()),
-                        Pair("date",arrayModelOrderList[position].getDate()))
+                    val bundle = bundleOf(Pair("idOrder",arrayModelOrderListRetrofit[position].getIdOrder()),
+                        Pair("date",arrayModelOrderListRetrofit[position].getDate()))
 
                     view.findNavController().navigate(R.id.nav_order,bundle)
                 }
@@ -50,6 +51,6 @@ class OrderListRecyclerAdapter(private val arrayModelOrderList: Array<DataModelO
     }
 
     override fun getItemCount(): Int {
-        return arrayModelOrderList.size
+        return arrayModelOrderListRetrofit.size
     }
 }

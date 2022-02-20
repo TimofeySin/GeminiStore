@@ -1,11 +1,11 @@
 package com.example.geministore.ui.orderList
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.geministore.data.retrofit.Common
+import com.example.geministore.data.retrofit.RetrofitDataModelOrderList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,10 +16,10 @@ import retrofit2.HttpException
 class OrderListViewModel : ViewModel() {
 
 
-    private var _orderList = MutableLiveData<Array<DataModelOrderList>>().apply {
-        value = arrayOf(DataModelOrderList())
+    private var _orderList = MutableLiveData<Array<RetrofitDataModelOrderList>>().apply {
+        value = arrayOf(RetrofitDataModelOrderList())
     }
-    val orderList: LiveData<Array<DataModelOrderList>> = _orderList
+    val orderListRetrofit: LiveData<Array<RetrofitDataModelOrderList>> = _orderList
 
     private var _refreshStatus = MutableLiveData<Boolean>().apply {
         value = false

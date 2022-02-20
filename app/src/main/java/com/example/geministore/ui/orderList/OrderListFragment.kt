@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.databinding.FragmentOrderListBinding
+import com.example.geministore.ui.BaseFragment
 
 
-class OrderListFragment : Fragment() {
+class OrderListFragment : BaseFragment() {
 
     private var _binding: FragmentOrderListBinding? = null
 
@@ -42,7 +42,7 @@ class OrderListFragment : Fragment() {
 
         val orderList: RecyclerView = binding.orderList
         orderList.layoutManager = LinearLayoutManager(context)
-        orderListViewModel.orderList.observe(viewLifecycleOwner) {
+        orderListViewModel.orderListRetrofit.observe(viewLifecycleOwner) {
             orderList.adapter = OrderListRecyclerAdapter(it)
         }
         return root
