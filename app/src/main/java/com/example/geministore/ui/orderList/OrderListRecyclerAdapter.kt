@@ -1,26 +1,37 @@
 package com.example.geministore.ui.orderList
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Resources
+import android.graphics.Color
+
+
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
+
 import androidx.core.os.bundleOf
+import androidx.core.text.color
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.R
-import com.example.geministore.data.retrofit.RetrofitDataModelOrderList
 
 
-class OrderListRecyclerAdapter(private val arrayModelOrderListRetrofit: Array<RetrofitDataModelOrderList>) :
+
+class OrderListRecyclerAdapter(private val arrayModelOrderListRetrofit: MutableCollection<DataModelOrderList>) :
     RecyclerView.Adapter<OrderListRecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val idOrder : TextView = itemView.findViewById(R.id.id_order)
-        val date : TextView  = itemView.findViewById(R.id.date_order)
-        val manger : TextView = itemView.findViewById(R.id.manager)
+        val nameAndNumber : TextView = itemView.findViewById(R.id.name_and_order)
         val deliveryTime : TextView  = itemView.findViewById(R.id.time_delivery)
+        val commentText : TextView  = itemView.findViewById(R.id.comment_text)
+        val quantityGoods : TextView  = itemView.findViewById(R.id.quantity_goods)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,25 +42,38 @@ class OrderListRecyclerAdapter(private val arrayModelOrderListRetrofit: Array<Re
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.idOrder.text = arrayModelOrderListRetrofit[position].getIdOrder()
-        holder.date.text = arrayModelOrderListRetrofit[position].getDate()
-        holder.manger.text = arrayModelOrderListRetrofit[position].getManger()
-        holder.deliveryTime.text = arrayModelOrderListRetrofit[position].getDeliveryTime()
+        val context = holder.itemView.context
+        val nameAndNumber = arrayModelOrderListRetrofit.elementAt(position).clientName+", " +arrayModelOrderListRetrofit.elementAt(position).idOrder
+        holder.nameAndNumber.text = nameAndNumber
+        holder.deliveryTime.text = arrayModelOrderListRetrofit.elementAt(position).deliveryTime
+        holder.commentText.text = arrayModelOrderListRetrofit.elementAt(position).comment
+        holder.quantityGoods.text = quantityText(context,arrayModelOrderListRetrofit.elementAt(position))
 
-        holder.itemView.setOnTouchListener { view, motionEvent ->
-            when (motionEvent.action) {
-                MotionEvent.ACTION_DOWN -> {
-
-                    val bundle = bundleOf(Pair("idOrder",arrayModelOrderListRetrofit[position].getIdOrder()),
-                        Pair("date",arrayModelOrderListRetrofit[position].getDate()))
-
-                    view.findNavController().navigate(R.id.nav_order,bundle)
-                }
-            }
-            true
+        holder.itemView.setOnClickListener {
+            val bundle =
+                bundleOf(Pair("idOrder", arrayModelOrderListRetrofit.elementAt(position).idOrder))
+            it.findNavController().navigate(R.id.nav_order, bundle)
         }
     }
 
+
+    private fun quantityText(context:Context, orderItem: DataModelOrderList): Spannable {
+        val startText = context.getText(R.string.quantity_goods).toString()
+        val quantityFull = orderItem.quantityFull.toString()
+        val quantityComplete = context
+            .getText(R.string.quantity_complete).toString() + orderItem.quantityComplete.toString()
+
+        val highlightingColor = if (orderItem.quantityFull == orderItem.quantityComplete){
+            context.getColor(R.color.green)
+        }else{
+            context.getColor(R.color.orange)
+        }
+
+        return SpannableStringBuilder()
+            .append("$startText$quantityFull (")
+            .color(highlightingColor) { append(quantityComplete) }
+            .append(")")
+    }
     override fun getItemCount(): Int {
         return arrayModelOrderListRetrofit.size
     }

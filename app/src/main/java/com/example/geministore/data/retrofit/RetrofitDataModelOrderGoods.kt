@@ -1,5 +1,6 @@
 package com.example.geministore.data.retrofit
 
+import com.example.geministore.ui.order.DataModelOrderGoods
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -38,6 +39,13 @@ class RetrofitDataModelOrderGoods  {
     fun getCodes():  Array<RetrofitDataModelCodes> {
         return codes
     }
+
+    fun RetrofitDataModelOrderGoods.toDataModelOrderGoods() = DataModelOrderGoods(
+        nameGoods = nameGoods,
+        weight = weight,
+        id = id,
+        codes = codes
+    )
 
 
 

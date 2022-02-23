@@ -16,7 +16,7 @@ import retrofit2.HttpException
 class OrderViewModel : ViewModel() {
 
     private var startScan : Boolean = false
-private  var retrofitDataModelOrder : RetrofitDataModelOrder = RetrofitDataModelOrder()
+private  var dataModelOrder : DataModelOrder = DataModelOrder()
     fun setStartScan(_startScan : Boolean){
         startScan = _startScan
     }
@@ -49,7 +49,8 @@ private  var retrofitDataModelOrder : RetrofitDataModelOrder = RetrofitDataModel
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val apiService = Common.makeRetrofitService
-                retrofitDataModelOrder = apiService.getOrderAsync(idOrder,dateOrder)
+                val retrofitDataModelOrder = apiService.getOrderAsync(idOrder,dateOrder)
+
 
                 _orderGoods.value = retrofitDataModelOrder.getGoods()
                 _deliveryTime.value = retrofitDataModelOrder.getDeliveryTime()
@@ -93,16 +94,16 @@ private  var retrofitDataModelOrder : RetrofitDataModelOrder = RetrofitDataModel
 
     private fun findPositionCode(Code: String): Int {
 
-        val goods = retrofitDataModelOrder.getGoods()
 
-        goods.forEach { itGood ->
-            itGood.getCodes().forEach { itCode ->
-                if (itCode.getCode() == Code) {
-                    //itGood.qu
-                    return itGood.getId()
-                }
-            }
-        }
+
+//        goods.forEach { itGood ->
+//            itGood.getCodes().forEach { itCode ->
+//                if (itCode.getCode() == Code) {
+//                    //itGood.qu
+//                    return itGood.getId()
+//                }
+//            }
+//        }
         return 0
     }
 

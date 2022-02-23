@@ -1,29 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/id_order"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content"
+        app:contentPadding="10dp"
+        app:cardElevation="6dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="8sp"
+        android:layout_marginLeft="8sp"
+        android:layout_marginRight="8sp"
+        android:layout_marginBottom="8sp"
+        android:background="@color/cardview_light_background">
 
-    <TextView
-        android:id="@+id/date_order"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/manager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/time_delivery"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
-</LinearLayout>
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:adjustViewBounds="true"
+                    android:clickable="false"
+                    android:contentDescription="@string/avatar"
+                    android:paddingStart="8sp"
+                    android:paddingEnd="0sp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/avatar"
+                    tools:ignore="NestedWeights"
+                    tools:srcCompat="@drawable/avatar" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/name_and_order"
+                        style="@style/HeaderBold20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8sp"
+                        android:text="@string/name_and_order" />
+
+                    <TextView
+                        android:id="@+id/time_delivery"
+                        style="@style/TextRegular14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8sp"
+                        android:text="@string/time_delivery" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/quantity_goods"
+                style="@style/TextRegular14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text="@string/quantity_goods" />
+
+            <TextView
+                android:id="@+id/comment_header"
+                style="@style/HeaderBold14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="16sp"
+                android:paddingEnd="16sp"
+                android:text="@string/comment_header" />
+
+            <TextView
+                android:id="@+id/comment_text"
+                style="@style/TextRegular14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minLines="5"
+                android:paddingStart="16sp"
+                android:paddingEnd="16sp"
+                android:text="@string/comment_text" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

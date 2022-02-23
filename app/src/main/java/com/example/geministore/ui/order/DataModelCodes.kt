@@ -1,5 +1,8 @@
 package com.example.geministore.ui.order
 
-class DataModelCodes {
-     val code: String = ""
+class DataModelCodes(code: String) {
+     var code: String = ""
+     init{
+          this.code = code
+     }
 }

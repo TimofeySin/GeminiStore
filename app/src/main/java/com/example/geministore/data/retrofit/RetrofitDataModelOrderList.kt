@@ -13,20 +13,20 @@ class RetrofitDataModelOrderList {
         return idOrder
     }
 
-    @SerializedName("date")
+    @SerializedName("Comment")
     @Expose
-    private val date: String = ""
+    private val comment: String = ""
 
-    fun getDate(): String {
-        return date
+    fun getComment(): String {
+        return comment
     }
 
-    @SerializedName("manger")
+    @SerializedName("ClientName")
     @Expose
-    private val manger: String = ""
+    private val clientName: String = ""
 
-    fun getManger(): String {
-        return manger
+    fun getClientName(): String {
+        return clientName
     }
 
     @SerializedName("deliveryTime")
@@ -37,21 +37,27 @@ class RetrofitDataModelOrderList {
         return deliveryTime
     }
 
-    @SerializedName("number")
+    @SerializedName("mobile")
     @Expose
-    private val number: String = ""
+    private val mobile: String = ""
 
-    fun getNumber(): String {
-        return number
+    fun getMobile(): String {
+        return mobile
     }
 
-    @SerializedName("magazin")
+    @SerializedName("QuantityFull")
     @Expose
-    private val magazin: String = ""
+    private val quantityFull: Int = 0
 
-    fun getMagazin(): String {
-        return magazin
+    fun getQuantityFull(): Int {
+        return quantityFull
     }
+    @SerializedName("QuantityComplete")
+    @Expose
+    private val quantityComplete: Int = 0
 
+    fun getQuantityComplete(): Int {
+        return quantityComplete
+    }
 
 }

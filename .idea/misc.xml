@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/drawable/avatar_circle.xml" value="0.1" />
+        <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/drawable/orders_item_divider.xml" value="0.194" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/app_bar_main.xml" value="0.19479166666666667" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
@@ -13,7 +15,7 @@
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order.xml" value="0.18697916666666667" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order_goods_item.xml" value="0.410958904109589" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order_item.xml" value="0.33" />
-        <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order_list_item.xml" value="0.18697916666666667" />
+        <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/order_list_item.xml" value="0.33" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/layout/recycler_view_holder.xml" value="0.36666666666666664" />
       </map>
     </option>

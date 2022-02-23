@@ -5,5 +5,5 @@ class DataModelOrder {
     val manger: String = ""
     val date: String = ""
     val idOrder: String = ""
-    val goods: Array<DataModelOrderGoods> = arrayOf(DataModelOrderGoods())
+    //val goods: Array<DataModelOrderGoods> = arrayOf(DataModelOrderGoods())
 }
