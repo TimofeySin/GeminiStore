@@ -1,6 +1,6 @@
 package com.example.geministore.ui.orderList
 
-import com.example.geministore.data.retrofit.RetrofitDataModelOrderList
+import com.example.geministore.services.retrofit.RetrofitDataModelOrderList
 
 class DataModelOrderList(retrofit : RetrofitDataModelOrderList) {
 var clientName  = ""

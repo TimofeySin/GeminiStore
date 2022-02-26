@@ -5,9 +5,8 @@ import android.view.KeyEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.geministore.data.retrofit.Common
-import com.example.geministore.data.retrofit.RetrofitDataModelOrder
-import com.example.geministore.data.retrofit.RetrofitDataModelOrderGoods
+import com.example.geministore.services.retrofit.Common
+import com.example.geministore.services.retrofit.RetrofitDataModelOrderGoods
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

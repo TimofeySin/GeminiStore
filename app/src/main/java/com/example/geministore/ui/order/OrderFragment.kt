@@ -1,12 +1,19 @@
 package com.example.geministore.ui.order
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+
 import androidx.lifecycle.ViewModelProvider
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.databinding.FragmentOrderBinding
@@ -21,6 +28,7 @@ class OrderFragment : BaseFragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private var orderViewModelForKey : OrderViewModel? = null
+private var broadcastReceiver : BroadcastReceiver? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -32,6 +40,13 @@ class OrderFragment : BaseFragment() {
             ViewModelProvider(this)[OrderViewModel::class.java]
         orderViewModelForKey = orderViewModel
 
+        broadcastReceiver = object : BroadcastReceiver(){
+            override fun onReceive(p0: Context?, intent: Intent?) {
+                val yourInteger: String? = intent?.getStringExtra("barcode")
+                Toast.makeText(p0,yourInteger,Toast.LENGTH_LONG).show()
+            }
+        }
+
         _binding = FragmentOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val bundle = arguments
@@ -41,37 +56,10 @@ class OrderFragment : BaseFragment() {
             Log.d("Bundel", "$idOrder/$date")
             orderViewModel.fetchData(idOrder,date)
         }
-
-        val idOrder : TextView =binding.idOrder
-        orderViewModel.idOrder.observe(viewLifecycleOwner){ idOrder.text = it}
-        val deliveryTime : TextView =binding.deliveryTime
-        orderViewModel.deliveryTime.observe(viewLifecycleOwner){ deliveryTime.text = it}
-        val manger : TextView =binding.manger
-        orderViewModel.manger.observe(viewLifecycleOwner){ manger.text = it}
-        val date : TextView =binding.date
-        orderViewModel.idOrder.observe(viewLifecycleOwner){ date.text = it}
-
-        val orderGoods: RecyclerView = binding.orderGoods
-        orderGoods.layoutManager = LinearLayoutManager(context)
-        orderViewModel.orderGoodsRetrofit.observe(viewLifecycleOwner) {
-            orderGoods.adapter = OrderRecyclerAdapter(it)
-        }
-
-
-        val startScan : Button = binding.startScan
-        startScan.setOnTouchListener { _, motionEvent ->
-            when (motionEvent.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    if (startScan.text == "Начать сканирование"){
-                        startScan.text = "Остановить сканирование"
-                        orderViewModel.setStartScan(true)
-                    } else {
-                        orderViewModel.setStartScan(false)
-                        startScan.text = "Начать сканирование"}
-                }
-            }
-            true
-        }
+//
+//        val idOrder : TextView =binding.idOrder
+//        orderViewModel.idOrder.observe(viewLifecycleOwner){ idOrder.text = it}
+//   
 
         return root
     }
@@ -86,5 +74,25 @@ class OrderFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        broadcastReceiver?.let {
+            LocalBroadcastManager.getInstance(requireContext())
+                .registerReceiver(it,  IntentFilter("ServiceBarcode"))
+        }
+    }
+
+
+
+    override fun onPause() {
+        super.onPause()
+        broadcastReceiver?.let {
+            LocalBroadcastManager.getInstance(requireContext())
+                .unregisterReceiver(it)
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.geministore.data.retrofit
+package com.example.geministore.services.retrofit
 
 import com.example.geministore.ui.order.DataModelOrderGoods
 import com.google.gson.annotations.Expose

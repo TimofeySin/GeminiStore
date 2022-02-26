@@ -1,6 +1,6 @@
 package com.example.geministore.ui.order
 
-import com.example.geministore.data.retrofit.RetrofitDataModelCodes
+import com.example.geministore.services.retrofit.RetrofitDataModelCodes
 
 class DataModelOrderGoods(
      nameGoods: String,

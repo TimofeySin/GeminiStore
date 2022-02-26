@@ -1,10 +1,8 @@
-package com.example.geministore.data.retrofit
+package com.example.geministore.services.retrofit
 
 import okhttp3.*
-import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.reflect.Type
 
 
 object RetrofitClient {

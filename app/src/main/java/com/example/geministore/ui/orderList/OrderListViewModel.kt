@@ -4,9 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.geministore.data.retrofit.Common
-import com.example.geministore.data.retrofit.RetrofitDataModelOrderList
-import com.example.geministore.ui.order.DataModelOrder
+import com.example.geministore.services.retrofit.Common
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

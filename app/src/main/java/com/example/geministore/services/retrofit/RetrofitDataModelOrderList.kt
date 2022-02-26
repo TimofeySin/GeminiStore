@@ -1,4 +1,4 @@
-package com.example.geministore.data.retrofit
+package com.example.geministore.services.retrofit
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

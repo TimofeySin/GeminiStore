@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.R
-import com.example.geministore.data.retrofit.RetrofitDataModelOrderGoods
+import com.example.geministore.services.retrofit.RetrofitDataModelOrderGoods
 
 
 class OrderRecyclerAdapter(private val arrayModelOrderGoodRetrofits: Array<RetrofitDataModelOrderGoods>) :
