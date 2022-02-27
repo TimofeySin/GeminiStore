@@ -1,13 +1,6 @@
 package com.example.geministore.ui.urovo
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothManager
-import android.content.Context
-import android.content.Context.BLUETOOTH_SERVICE
-import android.content.pm.PackageManager
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.geministore.R
 import com.example.geministore.databinding.FragmentSettingUrovoBinding
 
 
@@ -23,8 +15,6 @@ class UrovoFragment : Fragment() {
 
     private var _binding: FragmentSettingUrovoBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(

@@ -46,10 +46,7 @@ class UrovoConnectionService : Service() {
 
         val notification: Notification =
             NotificationCompat.Builder(this, CHANNEL_ID)
-                //.setContentTitle(getString(R.string.service_running_title))
-                //  .setContentText(getString(R.string.service_running_descrition))
-                //   .setSmallIcon(R.drawable.baseline_bluetooth_disabled_24)
-                .setContentIntent(pendingIntent)
+               .setContentIntent(pendingIntent)
                 .build()
         startForeground(NOTIFICATION_ID, notification)
         connect()
