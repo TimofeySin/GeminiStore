@@ -1,8 +1,10 @@
 package com.example.geministore.ui.order
 
-class DataModelCodes(code: String) {
+import com.example.geministore.services.retrofit.RetrofitDataModelCodes
+
+class DataModelCodes(code: RetrofitDataModelCodes) {
      var code: String = ""
      init{
-          this.code = code
+          this.code = code.getCode()
      }
 }

@@ -6,7 +6,30 @@ import com.google.gson.annotations.SerializedName
 
 class RetrofitDataModelOrderGoods  {
 
-    @SerializedName("namegoods")
+    @SerializedName("price_good")
+    @Expose
+    private val priceGoods: Float = 0.0F
+
+    fun getPriceGoods(): Float {
+        return priceGoods
+    }
+    @SerializedName("good_total")
+    @Expose
+    private val totalGoods: Float = 0.0F
+
+    fun getTotalGoods(): Float {
+        return totalGoods
+    }
+    @SerializedName("good_complete")
+    @Expose
+    private val completeGoods: Float = 0.0F
+
+    fun getCompleteGoods(): Float {
+        return completeGoods
+    }
+
+
+    @SerializedName("name_goods")
     @Expose
     private val nameGoods: String = ""
 
@@ -14,14 +37,13 @@ class RetrofitDataModelOrderGoods  {
         return nameGoods
     }
 
-    @SerializedName("weight")
+    @SerializedName("comment_good")
     @Expose
-    private val weight: String = ""
+    private val commentGood: String = ""
 
-    fun getWeight(): String {
-        return weight
+    fun getCommentGoods(): String {
+        return commentGood
     }
-
 
     @SerializedName("id")
     @Expose
@@ -39,15 +61,5 @@ class RetrofitDataModelOrderGoods  {
     fun getCodes():  Array<RetrofitDataModelCodes> {
         return codes
     }
-
-    fun RetrofitDataModelOrderGoods.toDataModelOrderGoods() = DataModelOrderGoods(
-        nameGoods = nameGoods,
-        weight = weight,
-        id = id,
-        codes = codes
-    )
-
-
-
 
 }

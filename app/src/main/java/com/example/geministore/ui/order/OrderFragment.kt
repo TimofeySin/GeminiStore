@@ -59,7 +59,7 @@ private var broadcastReceiver : BroadcastReceiver? = null
 //
 //        val idOrder : TextView =binding.idOrder
 //        orderViewModel.idOrder.observe(viewLifecycleOwner){ idOrder.text = it}
-//   
+//
 
         return root
     }

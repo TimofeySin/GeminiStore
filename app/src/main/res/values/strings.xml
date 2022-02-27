@@ -28,8 +28,8 @@
 
     <string name="comment_order_head">Комментарий к заказу</string>
     <string name="comment_client_head">Комментарий к клиенту</string>
-
-
+    <string name="good_images">Изображение товара</string>
+    <string name="button_clear">Очистить</string>
     <!-- Settings Activity Title -->
     <string name="title_activity_settings">Настройки</string>
 

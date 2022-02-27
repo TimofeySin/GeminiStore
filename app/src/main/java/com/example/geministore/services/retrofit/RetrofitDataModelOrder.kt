@@ -5,20 +5,20 @@ import com.google.gson.annotations.SerializedName
 
 class RetrofitDataModelOrder {
 
-    @SerializedName("deliveryTime")
+    @SerializedName("comment_client")
     @Expose
-    private val deliveryTime: String = ""
+    private val commentClient: String = ""
 
-    fun getDeliveryTime(): String {
-        return deliveryTime
+    fun getCommentClient(): String {
+        return commentClient
     }
 
-    @SerializedName("manger")
+    @SerializedName("comment_order")
     @Expose
-    private val manger: String = ""
+    private val commentOrder: String = ""
 
-    fun getManger(): String {
-        return manger
+    fun getCommentOrder(): String {
+        return commentOrder
     }
     @SerializedName("date")
     @Expose
@@ -43,8 +43,4 @@ class RetrofitDataModelOrder {
     fun getGoods():  Array<RetrofitDataModelOrderGoods> {
         return goods
     }
-
-
-
-
 }
