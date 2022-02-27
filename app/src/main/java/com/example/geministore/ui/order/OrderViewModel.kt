@@ -16,6 +16,8 @@ import retrofit2.HttpException
 class OrderViewModel : ViewModel() {
     private var dataModelOrder: DataModelOrder? = null
     private var retrofitDataModelOrderGlobal: RetrofitDataModelOrder? = null
+    private val weightBarcode = "11"
+
 
     private val _commentClient = MutableLiveData<String>().apply {
         value = ""
@@ -42,8 +44,8 @@ class OrderViewModel : ViewModel() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val apiService = Common.makeRetrofitService
-                val  retrofitDataModelOrder = apiService.getOrderAsync(idOrder)
-                retrofitDataModelOrderGlobal= retrofitDataModelOrder
+                val retrofitDataModelOrder = apiService.getOrderAsync(idOrder)
+                retrofitDataModelOrderGlobal = retrofitDataModelOrder
                 dataModelOrder = DataModelOrder(retrofitDataModelOrder)
                 dataModelOrder?.let {
                     _commentClient.value = it.commentClient
@@ -51,8 +53,6 @@ class OrderViewModel : ViewModel() {
                     _idOrder.value = it.idOrder
                     _orderGoods.value = it.orderGoods
                 }
-                //  val call: Call<ResponseBody> = RetrofitClient.getClient.downloadFileUsingUrl("/images/pages/pic_w/6408.jpg")
-
             } catch (notUseFullException: Exception) {
                 val useFullException = wrapToBeTraceable(notUseFullException)
                 Log.d("crash",
@@ -68,14 +68,26 @@ class OrderViewModel : ViewModel() {
         return throwable
     }
 
-    var code: String = ""
-
     fun responseCode(code: String) {
+        var codeLocal = code
+        var weight = ""
+        var itWeight = false
+        if (code.substring(0, 1) == weightBarcode) {
+            codeLocal = code.substring(2, 7)
+            weight = code.substring(8, 11)
+            itWeight = true
+        }
+
         dataModelOrder?.let {
             it.orderGoods.forEach { itGood ->
                 itGood.codes.forEach { itCode ->
-                    if (itCode.code == code) {
-                        itGood.completeGoods++
+                    if (itCode.code == codeLocal) {
+
+                        if (itWeight) {
+                            itGood.completeGoods += weight.toFloat()
+                        } else {
+                            itGood.completeGoods++
+                        }
                     }
                 }
             }
@@ -87,9 +99,9 @@ class OrderViewModel : ViewModel() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val apiService = Common.makeRetrofitService
-               val res = apiService.saveOrder(retrofitDataModelOrderGlobal)
-                Log.d("crash",res.toString())
-            } catch(notUseFullException: Exception) {
+                val res = apiService.saveOrder(retrofitDataModelOrderGlobal)
+                Log.d("crash", res.toString())
+            } catch (notUseFullException: Exception) {
                 Log.d("crash",
                     notUseFullException.printStackTrace().toString())   // or whatever logging
             }
