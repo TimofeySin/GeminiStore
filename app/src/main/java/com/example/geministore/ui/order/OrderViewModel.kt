@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.geministore.services.retrofit.Common
+import com.example.geministore.services.retrofit.RetrofitDataModelOrder
 import com.example.geministore.services.retrofit.RetrofitDataModelOrderGoods
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class OrderViewModel : ViewModel() {
-
+    private var dataModelOrder: DataModelOrder? = null
+    private var retrofitDataModelOrderGlobal: RetrofitDataModelOrder? = null
 
     private val _commentClient = MutableLiveData<String>().apply {
         value = ""
@@ -36,23 +38,25 @@ class OrderViewModel : ViewModel() {
     val orderGoods: LiveData<MutableList<DataModelOrderGoods>> = _orderGoods
 
 
-    fun fetchData(idOrder:String?)  {
+    fun fetchData(idOrder: String?) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val apiService = Common.makeRetrofitService
-                val retrofitDataModelOrder = apiService.getOrderAsync(idOrder)
-                val dataModelOrder = DataModelOrder(retrofitDataModelOrder)
+                val  retrofitDataModelOrder = apiService.getOrderAsync(idOrder)
+                retrofitDataModelOrderGlobal= retrofitDataModelOrder
+                dataModelOrder = DataModelOrder(retrofitDataModelOrder)
+                dataModelOrder?.let {
+                    _commentClient.value = it.commentClient
+                    _commentOrder.value = it.commentOrder
+                    _idOrder.value = it.idOrder
+                    _orderGoods.value = it.orderGoods
+                }
+                //  val call: Call<ResponseBody> = RetrofitClient.getClient.downloadFileUsingUrl("/images/pages/pic_w/6408.jpg")
 
-                _commentClient.value = dataModelOrder.commentClient
-                _commentOrder.value = dataModelOrder.commentOrder
-                _idOrder.value = dataModelOrder.idOrder
-                _orderGoods.value = dataModelOrder.orderGoods
-
-              //  val call: Call<ResponseBody> = RetrofitClient.getClient.downloadFileUsingUrl("/images/pages/pic_w/6408.jpg")
-
-            } catch  (notUseFullException: Exception) {
+            } catch (notUseFullException: Exception) {
                 val useFullException = wrapToBeTraceable(notUseFullException)
-                Log.d("crash",useFullException.printStackTrace().toString())   // or whatever logging
+                Log.d("crash",
+                    useFullException.printStackTrace().toString())   // or whatever logging
             }
         }
     }
@@ -66,31 +70,32 @@ class OrderViewModel : ViewModel() {
 
     var code: String = ""
 
-fun responseCode(code :String){
-
-}
-
-
-
-
-    private fun findPositionCode(Code: String): Int {
-
-
-
-//        goods.forEach { itGood ->
-//            itGood.getCodes().forEach { itCode ->
-//                if (itCode.getCode() == Code) {
-//                    //itGood.qu
-//                    return itGood.getId()
-//                }
-//            }
-//        }
-        return 0
+    fun responseCode(code: String) {
+        dataModelOrder?.let {
+            it.orderGoods.forEach { itGood ->
+                itGood.codes.forEach { itCode ->
+                    if (itCode.code == code) {
+                        itGood.completeGoods++
+                    }
+                }
+            }
+            _orderGoods.value = it.orderGoods
+        }
     }
 
+    fun saveData() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val apiService = Common.makeRetrofitService
+               val res = apiService.saveOrder(retrofitDataModelOrderGlobal)
+                Log.d("crash",res.toString())
+            } catch(notUseFullException: Exception) {
+                Log.d("crash",
+                    notUseFullException.printStackTrace().toString())   // or whatever logging
+            }
 
-
-
+        }
+    }
 
 
 }

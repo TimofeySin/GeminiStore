@@ -8,7 +8,7 @@ class DataModelOrderGoods(orderGoods: RetrofitDataModelOrderGoods) {
      var completeGoods: Float = 0.0F
      var nameGoods: String = ""
      var commentGoods: String = ""
-     var id: Int = 0
+     var id: String = ""
      var codes: MutableList<DataModelCodes> = mutableListOf()
 
     init {

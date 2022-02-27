@@ -1,12 +1,11 @@
 package com.example.geministore.ui.order
 
-import android.annotation.SuppressLint
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.databinding.FragmentOrderBinding
 import com.example.geministore.ui.BaseFragment
-import com.example.geministore.ui.orderList.OrderListRecyclerAdapter
+
 
 
 class OrderFragment : BaseFragment() {
@@ -25,7 +24,7 @@ class OrderFragment : BaseFragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
+    private var orderViewModelGlobal : OrderViewModel?=null
     private var broadcastReceiver: BroadcastReceiver? = null
 
     override fun onCreateView(
@@ -35,6 +34,7 @@ class OrderFragment : BaseFragment() {
     ): View {
         val orderViewModel =
             ViewModelProvider(this)[OrderViewModel::class.java]
+        orderViewModelGlobal = orderViewModel
 
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, intent: Intent?) {
@@ -88,6 +88,7 @@ class OrderFragment : BaseFragment() {
 
     override fun onPause() {
         super.onPause()
+        orderViewModelGlobal?.saveData()
         broadcastReceiver?.let {
             LocalBroadcastManager.getInstance(requireContext())
                 .unregisterReceiver(it)

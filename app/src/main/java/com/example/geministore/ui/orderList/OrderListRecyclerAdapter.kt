@@ -2,24 +2,24 @@ package com.example.geministore.ui.orderList
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.Color
+
 
 
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 
 import android.view.LayoutInflater
-import android.view.MotionEvent
+
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
+
 
 import androidx.core.os.bundleOf
 import androidx.core.text.color
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+
 import com.example.geministore.R
 
 
@@ -48,6 +48,9 @@ class OrderListRecyclerAdapter(private val arrayModelOrderListRetrofit: MutableL
         holder.deliveryTime.text = arrayModelOrderListRetrofit.elementAt(position).deliveryTime
         holder.commentText.text = arrayModelOrderListRetrofit.elementAt(position).comment
         holder.quantityGoods.text = quantityText(context,arrayModelOrderListRetrofit.elementAt(position))
+
+
+
 
         holder.itemView.setOnClickListener {
             val bundle =

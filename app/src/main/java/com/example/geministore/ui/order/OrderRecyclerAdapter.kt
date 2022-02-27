@@ -7,12 +7,13 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.R
-import com.example.geministore.services.retrofit.RetrofitDataModelOrderGoods
-import com.example.geministore.ui.orderList.DataModelOrderList
+import com.example.geministore.services.glide.ServiceGlide
+
 
 
 class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataModelOrderGoods>) :
@@ -23,7 +24,7 @@ class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataMode
         val totalGoods: TextView = itemView.findViewById(R.id.good_total)
         val nameGoods: TextView = itemView.findViewById(R.id.good_description)
         val commentGoods: TextView = itemView.findViewById(R.id.good_comment)
-
+        val imageGoods: ImageView = itemView.findViewById(R.id.good_image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -39,6 +40,7 @@ class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataMode
         holder.priceGoods.text = arrayModelOrderGood[position].priceGoods.toString()
         holder.totalGoods.text = quantityText(context,arrayModelOrderGood[position])
         holder.commentGoods.text = arrayModelOrderGood[position].commentGoods
+        ServiceGlide().getImage(arrayModelOrderGood[position].id,holder.imageGoods,context)
     }
 
     override fun getItemCount(): Int {

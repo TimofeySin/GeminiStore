@@ -47,9 +47,9 @@ class RetrofitDataModelOrderGoods  {
 
     @SerializedName("id")
     @Expose
-    private val id: Int = 0
+    private val id: String = ""
 
-    fun getId(): Int {
+    fun getId(): String {
         return id
     }
 

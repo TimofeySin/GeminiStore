@@ -7,4 +7,8 @@ object Common {
     val makeRetrofitService: RetrofitServices
         get() = RetrofitClient.getClient(BASE_URL).create(RetrofitServices::class.java)
     val getOhttp  =RetrofitClient.okHttpClient
+
+    fun getUrl():String{
+        return BASE_URL
+    }
 }
