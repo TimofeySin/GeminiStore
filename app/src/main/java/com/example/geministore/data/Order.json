@@ -1,0 +1,102 @@
+{
+  "idOrder": "00ЦБ-000097",
+  "comment_client": "не адекват, мажется зеленкой",
+  "comment_order": "полить зеленкой все продукты",
+  "goods": [
+    {
+      "id": 1,
+      "comment_good": "с плесенью обязательно!",
+      "name_goods": "Хлеб Российский, свежайший",
+      "price_good": 120.25,
+      "good_total": 2,
+      "good_complete": 0,
+      "codes": [
+        {
+          "code": "4602242022947"
+        },
+        {
+          "code": "123567"
+        },
+        {
+          "code": "1235678"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "comment_good": "",
+      "name_goods": "Масло сливочное, 82%",
+      "price_good": 325.85,
+      "good_total": 3,
+      "good_complete": 3,
+      "codes": [
+        {
+          "code": "4605105047316"
+        },
+        {
+          "code": "12353367"
+        },
+        {
+          "code": "123335678"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "comment_good": "",
+      "name_goods": "Сыр Российский, -1%",
+      "price_good": 45550.25,
+      "good_total": 12,
+      "good_complete": 2,
+      "codes": [
+        {
+          "code": "9002859108891"
+        },
+        {
+          "code": "123567"
+        },
+        {
+          "code": "1235678"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "comment_good": "с песком, ка кобещают на упаковке!",
+      "name_goods": "Сахар песок",
+      "price_good": 40.25,
+      "good_total": 17.986,
+      "good_complete": 0,
+      "codes": [
+        {
+          "code": "4602242ыв022947"
+        },
+        {
+          "code": "123567"
+        },
+        {
+          "code": "1235678"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "comment_good": "только обрезки",
+      "name_goods": "Колбаса",
+      "price_good": 10.25,
+      "good_total": 15.8,
+      "good_complete": 0,
+      "codes": [
+        {
+          "code": "46022ф42022947"
+        },
+        {
+          "code": "123567"
+        },
+        {
+          "code": "1235678"
+        }
+      ]
+    }
+  ]
+}
