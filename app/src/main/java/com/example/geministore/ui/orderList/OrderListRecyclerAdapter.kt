@@ -24,7 +24,7 @@ import com.example.geministore.R
 
 
 
-class OrderListRecyclerAdapter(private val arrayModelOrderListRetrofit: MutableCollection<DataModelOrderList>) :
+class OrderListRecyclerAdapter(private val arrayModelOrderListRetrofit: MutableList<DataModelOrderList>) :
     RecyclerView.Adapter<OrderListRecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

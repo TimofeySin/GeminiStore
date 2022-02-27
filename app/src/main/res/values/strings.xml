@@ -21,15 +21,23 @@
     <string name="comment_text">текст комментария, текст комментария, текст комментария, текст комментария, текст комментария, текст комментария, текст комментария.</string>
     <string name="avatar">Avatar</string>
 
-
-
-
-
+    <!-- Описания заказа в  заказе-->
 
     <string name="comment_order_head">Комментарий к заказу</string>
     <string name="comment_client_head">Комментарий к клиенту</string>
+    <string name="comment_order">Комментарий к заказу</string>
+    <string name="comment_client">Комментарий к клиенту</string>
+    <string name="goods_price">Цена</string>
+    <string name="goods_total">Собрано всего</string>
     <string name="good_images">Изображение товара</string>
+    <string name="good_desc">Описание товара</string>
+    <string name="good_comment">Пожелания клиента</string>
     <string name="button_clear">Очистить</string>
+
+
+
+
+
     <!-- Settings Activity Title -->
     <string name="title_activity_settings">Настройки</string>
 

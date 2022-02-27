@@ -14,52 +14,45 @@ import retrofit2.HttpException
 
 class OrderViewModel : ViewModel() {
 
-    private var startScan : Boolean = false
-private  var dataModelOrder : DataModelOrder = DataModelOrder()
-    fun setStartScan(_startScan : Boolean){
-        startScan = _startScan
-    }
 
-    private val _orderGoods = MutableLiveData<Array<RetrofitDataModelOrderGoods>>().apply {
-        value = arrayOf(RetrofitDataModelOrderGoods())
-    }
-    val orderGoodsRetrofit: LiveData<Array<RetrofitDataModelOrderGoods>> = _orderGoods
-
-
-    private val _deliveryTime = MutableLiveData<String>().apply {
+    private val _commentClient = MutableLiveData<String>().apply {
         value = ""
     }
-    val deliveryTime: LiveData<String> = _deliveryTime
-    private val _manger = MutableLiveData<String>().apply {
+    val commentClient: LiveData<String> = _commentClient
+
+    private val _commentOrder = MutableLiveData<String>().apply {
         value = ""
     }
-    val manger: LiveData<String> = _manger
-    private val _date = MutableLiveData<String>().apply {
-        value = ""
-    }
-    val date: LiveData<String> = _date
+    val commentOrder: LiveData<String> = _commentOrder
+
     private val _idOrder = MutableLiveData<String>().apply {
         value = ""
     }
     val idOrder: LiveData<String> = _idOrder
 
+    private val _orderGoods = MutableLiveData<MutableList<DataModelOrderGoods>>().apply {
+        value = mutableListOf()
+    }
+    val orderGoods: LiveData<MutableList<DataModelOrderGoods>> = _orderGoods
 
-    fun fetchData(idOrder:String?,dateOrder:String?)  {
+
+    fun fetchData(idOrder:String?)  {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val apiService = Common.makeRetrofitService
-                val retrofitDataModelOrder = apiService.getOrderAsync(idOrder,dateOrder)
+                val retrofitDataModelOrder = apiService.getOrderAsync(idOrder)
+                val dataModelOrder = DataModelOrder(retrofitDataModelOrder)
 
+                _commentClient.value = dataModelOrder.commentClient
+                _commentOrder.value = dataModelOrder.commentOrder
+                _idOrder.value = dataModelOrder.idOrder
+                _orderGoods.value = dataModelOrder.orderGoods
 
-                _orderGoods.value = retrofitDataModelOrder.getGoods()
-                _deliveryTime.value = retrofitDataModelOrder.getDeliveryTime()
-                _manger.value = retrofitDataModelOrder.getManger()
-                _date.value = retrofitDataModelOrder.getDate()
-                _idOrder.value = retrofitDataModelOrder.getIdOrder()
+              //  val call: Call<ResponseBody> = RetrofitClient.getClient.downloadFileUsingUrl("/images/pages/pic_w/6408.jpg")
+
             } catch  (notUseFullException: Exception) {
                 val useFullException = wrapToBeTraceable(notUseFullException)
-            //Log.d("crash",useFullException.localizedMessage)
-            // useFullException.printStackTrace()  // or whatever logging
+                Log.d("crash",useFullException.printStackTrace().toString())   // or whatever logging
             }
         }
     }
@@ -73,22 +66,11 @@ private  var dataModelOrder : DataModelOrder = DataModelOrder()
 
     var code: String = ""
 
-     fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (startScan) {
-            val char : Char? = event?.displayLabel
-            code += char.toString()
-            Log.d("codeChar", code)
-            Log.d("codeChar", keyCode.toString())
-            if (keyCode == 66 || code.length ==13) {
-                Log.d("codeChar", "Last char")
-               val idGood = findPositionCode(code)
-                if (idGood ==0){ Log.d("codeChar", "Not Found")}
+fun responseCode(code :String){
 
-                code = ""
-            }
-        }
-    return true
-    }
+}
+
+
 
 
     private fun findPositionCode(Code: String): Int {

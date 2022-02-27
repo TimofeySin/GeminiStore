@@ -20,13 +20,7 @@ class RetrofitDataModelOrder {
     fun getCommentOrder(): String {
         return commentOrder
     }
-    @SerializedName("date")
-    @Expose
-    private val date: String = ""
 
-    fun getDate(): String {
-        return date
-    }
     @SerializedName("idOrder")
     @Expose
     private val idOrder: String = ""

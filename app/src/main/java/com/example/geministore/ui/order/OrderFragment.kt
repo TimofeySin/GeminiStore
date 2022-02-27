@@ -8,16 +8,14 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.databinding.FragmentOrderBinding
 import com.example.geministore.ui.BaseFragment
+import com.example.geministore.ui.orderList.OrderListRecyclerAdapter
 
 
 class OrderFragment : BaseFragment() {
@@ -27,23 +25,23 @@ class OrderFragment : BaseFragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private var orderViewModelForKey : OrderViewModel? = null
-private var broadcastReceiver : BroadcastReceiver? = null
 
-    @SuppressLint("ClickableViewAccessibility")
+    private var broadcastReceiver: BroadcastReceiver? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-         val orderViewModel =
+        val orderViewModel =
             ViewModelProvider(this)[OrderViewModel::class.java]
-        orderViewModelForKey = orderViewModel
 
-        broadcastReceiver = object : BroadcastReceiver(){
+        broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, intent: Intent?) {
-                val yourInteger: String? = intent?.getStringExtra("barcode")
-                Toast.makeText(p0,yourInteger,Toast.LENGTH_LONG).show()
+                val barcode: String? = intent?.getStringExtra("barcode")
+                barcode?.let {
+                    orderViewModel.responseCode(it)
+                }
             }
         }
 
@@ -52,24 +50,26 @@ private var broadcastReceiver : BroadcastReceiver? = null
         val bundle = arguments
         bundle?.let {
             val idOrder = it.getString("idOrder")
-            val date = it.getString("date")
-            Log.d("Bundel", "$idOrder/$date")
-            orderViewModel.fetchData(idOrder,date)
+            orderViewModel.fetchData(idOrder)
         }
-//
-//        val idOrder : TextView =binding.idOrder
-//        orderViewModel.idOrder.observe(viewLifecycleOwner){ idOrder.text = it}
-//
+
+        val commentClient : TextView =binding.commentClient
+        orderViewModel.commentClient.observe(viewLifecycleOwner){ commentClient.text = it}
+
+        val commentOrder : TextView =binding.commentOrder
+        orderViewModel.commentOrder.observe(viewLifecycleOwner){ commentOrder.text = it}
+
+        val goodsList: RecyclerView = binding.orderGoods
+        goodsList.layoutManager = LinearLayoutManager(context)
+        orderViewModel.orderGoods.observe(viewLifecycleOwner) {
+            goodsList.adapter = OrderRecyclerAdapter(it)
+        }
+
+
 
         return root
     }
 
-    override fun keyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        orderViewModelForKey?.onKeyDown(keyCode,event)
-
-       //* Log.d("codeChar", keyCode.toString())
-        return true
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -77,15 +77,13 @@ private var broadcastReceiver : BroadcastReceiver? = null
     }
 
 
-
     override fun onResume() {
         super.onResume()
         broadcastReceiver?.let {
             LocalBroadcastManager.getInstance(requireContext())
-                .registerReceiver(it,  IntentFilter("ServiceBarcode"))
+                .registerReceiver(it, IntentFilter("ServiceBarcode"))
         }
     }
-
 
 
     override fun onPause() {

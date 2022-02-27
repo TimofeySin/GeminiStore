@@ -15,10 +15,10 @@ import retrofit2.HttpException
 class OrderListViewModel : ViewModel() {
 
 
-    private var _orderList = MutableLiveData<MutableCollection<DataModelOrderList>>().apply {
+    private var _orderList = MutableLiveData<MutableList<DataModelOrderList>>().apply {
         value = mutableListOf()
     }
-    val orderListRetrofit: LiveData<MutableCollection<DataModelOrderList>> = _orderList
+    val orderListRetrofit: LiveData<MutableList<DataModelOrderList>> = _orderList
 
     private var _refreshStatus = MutableLiveData<Boolean>().apply {
         value = false
@@ -31,7 +31,7 @@ class OrderListViewModel : ViewModel() {
             try {
                 val apiService = Common.makeRetrofitService
                 val response = apiService.getOrderListAsync()
-                val listOfDataOrder : MutableCollection<DataModelOrderList> = mutableListOf()
+                val listOfDataOrder : MutableList<DataModelOrderList> = mutableListOf()
                 response.forEach {
                     listOfDataOrder.add(DataModelOrderList(it))
                 }

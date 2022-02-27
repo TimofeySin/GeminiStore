@@ -1,23 +1,29 @@
 package com.example.geministore.ui.order
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.R
 import com.example.geministore.services.retrofit.RetrofitDataModelOrderGoods
+import com.example.geministore.ui.orderList.DataModelOrderList
 
 
-class OrderRecyclerAdapter(private val arrayModelOrderGoodRetrofits: Array<RetrofitDataModelOrderGoods>) :
+class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataModelOrderGoods>) :
     RecyclerView.Adapter<OrderRecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameGoods : TextView = itemView.findViewById(R.id.namegoods)
-        val weight : TextView = itemView.findViewById(R.id.weight)
-        val id : TextView = itemView.findViewById(R.id.id)
-        val quantity : TextView = itemView.findViewById(R.id.quantity)
+        val priceGoods: TextView = itemView.findViewById(R.id.good_price)
+        val totalGoods: TextView = itemView.findViewById(R.id.good_total)
+        val nameGoods: TextView = itemView.findViewById(R.id.good_description)
+        val commentGoods: TextView = itemView.findViewById(R.id.good_comment)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -28,16 +34,30 @@ class OrderRecyclerAdapter(private val arrayModelOrderGoodRetrofits: Array<Retro
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.nameGoods.text = arrayModelOrderGoodRetrofits[position].getNameGoods()
-        holder.weight.text = arrayModelOrderGoodRetrofits[position].getWeight()
-        holder.id.text = arrayModelOrderGoodRetrofits[position].getId().toString()
-       // holder.quantity.text = arrayModelOrderGoodRetrofits[position].getQuantity().toString()
+        val context = holder.itemView.context
+        holder.nameGoods.text = arrayModelOrderGood[position].nameGoods
+        holder.priceGoods.text = arrayModelOrderGood[position].priceGoods.toString()
+        holder.totalGoods.text = quantityText(context,arrayModelOrderGood[position])
+        holder.commentGoods.text = arrayModelOrderGood[position].commentGoods
     }
 
     override fun getItemCount(): Int {
-        return arrayModelOrderGoodRetrofits.size
+        return arrayModelOrderGood.size
     }
 
+    private fun quantityText(context: Context, orderGoods: DataModelOrderGoods): Spannable {
+        val quantityFull = orderGoods.completeGoods.toString()
+        val quantityComplete = orderGoods.totalGoods.toString()
 
+        val highlightingColor = if (orderGoods.completeGoods >= orderGoods.totalGoods){
+            context.getColor(R.color.green)
+        }else{
+            context.getColor(R.color.orange)
+        }
+
+        return SpannableStringBuilder()
+            .append("Собрано ")
+            .color(highlightingColor) { append("$quantityComplete из $quantityFull") }
+    }
 
 }
