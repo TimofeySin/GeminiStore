@@ -21,19 +21,6 @@
             android:padding="8sp">
 
             <TextView
-                android:id="@+id/comment_order_head"
-                style="@style/HeaderBold14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/comment_order_head" />
-
-            <TextView
-                android:id="@+id/comment_order"
-                style="@style/TextRegular14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
                 android:id="@+id/comment_client_head"
                 style="@style/HeaderBold14"
                 android:layout_width="match_parent"
@@ -45,7 +32,23 @@
                 android:id="@+id/comment_client"
                 style="@style/TextRegular14"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/comment_client" />
+
+            <TextView
+                android:id="@+id/comment_order_head"
+                style="@style/HeaderBold14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/comment_order_head" />
+
+            <TextView
+                android:id="@+id/comment_order"
+                style="@style/TextRegular14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/comment_header" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
