@@ -1,8 +1,5 @@
 package com.example.geministore.services.retrofit
 
-
-import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -15,9 +12,8 @@ interface RetrofitServices {
     @GET("hs/BitrixDelivery/Order/")
     suspend fun getOrderAsync(@Query("idOrder") idOrder:String?): RetrofitDataModelOrder
 
-    @Streaming
-    @GET("hs/BitrixDelivery/getImage/")
-    suspend fun getImageAsync(@Query("code") code:String?): Call<ResponseBody>
+    @GET("hs/BitrixDelivery/Goods")
+    suspend fun getGoodsAsync(@Query("idGoods") idGoods:String?): RetrofitDataModelOrderGoods
 
     @POST("hs/BitrixDelivery/SaveOrder")
     @Headers("Content-Type: application/json")

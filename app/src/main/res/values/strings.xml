@@ -34,7 +34,12 @@
     <string name="good_comment">Пожелания клиента</string>
     <string name="button_clear">Очистить</string>
 
-
+    <string name="add_alert_button">Добавить</string>
+   <string name="cancel_alert_button">Отменить</string>
+    <string name="alert_add_new">Данного товара нет в заказе</string>
+    <string name="alert_error">Уже собрано</string>
+    <string name="alert_delim">ИЗ</string>
+    <string name="alert_not_found">Товар не найден</string>
 
 
 

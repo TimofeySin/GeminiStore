@@ -64,15 +64,4 @@ class MainActivity : AppCompatActivity() {
     this.bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        supportFragmentManager.let{ itMain ->
-            itMain.fragments.last().childFragmentManager.let{
-                val currentFragment : BaseFragment = it.fragments.last() as BaseFragment
-                  currentFragment.keyDown(keyCode,event)
-                return super.onKeyDown(keyCode, event)
-            }
-        }
-    }
-
 }
