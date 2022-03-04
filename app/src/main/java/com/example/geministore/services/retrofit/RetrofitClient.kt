@@ -14,7 +14,7 @@ object RetrofitClient {
             if (request.header("Authorization") != null) // Логин и пароль неверны
                 return@authenticator null
             request.newBuilder()
-                .header("Authorization", Credentials.basic("Администратор", "Администратор"))
+                .header("Authorization", Credentials.basic("Android", "123"))
                 .build()
         }
         .build()

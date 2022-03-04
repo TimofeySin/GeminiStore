@@ -47,16 +47,16 @@ class RetrofitDataModelOrderList {
 
     @SerializedName("QuantityFull")
     @Expose
-    private val quantityFull: Int = 0
+    private val quantityFull: Float = 0.0F
 
-    fun getQuantityFull(): Int {
+    fun getQuantityFull(): Float {
         return quantityFull
     }
     @SerializedName("QuantityComplete")
     @Expose
-    private val quantityComplete: Int = 0
+    private val quantityComplete: Float = 0.0F
 
-    fun getQuantityComplete(): Int {
+    fun getQuantityComplete(): Float {
         return quantityComplete
     }
 

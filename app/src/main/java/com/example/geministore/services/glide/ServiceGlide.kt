@@ -12,9 +12,9 @@ import com.example.geministore.services.retrofit.Common
 
 class ServiceGlide {
     private val server = Common.getUrl()
-    private val url = "/hs/BitrixDelivery/getImage"
-    private val username = "/hs/BitrixDelivery/getImage"
-    private val password = "/hs/BitrixDelivery/getImage"
+    private val url = "/bliznetsy_bitrix/hs/BitrixDelivery/getImage"
+    private val username = "Android"
+    private val password = "123"
 
 
     fun getImage(code: String, imageView: ImageView, context: Context) {

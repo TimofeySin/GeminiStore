@@ -186,9 +186,9 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 val apiService = Common.makeRetrofitService
                 val res = apiService.saveOrder(retrofitDataModelOrderGlobal)
-                Log.d("crash", res.toString())
+                Log.d("crashsaveData", res.toString())
             } catch (notUseFullException: Exception) {
-                Log.d("crash",
+                Log.d("crashsaveData",
                     notUseFullException.printStackTrace().toString())   // or whatever logging
             }
         }

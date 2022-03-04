@@ -8,8 +8,8 @@ var clientName  = ""
     var mobile  = ""
     var comment  = ""
     var deliveryTime  = ""
-    var quantityFull  = 0
-    var quantityComplete  = 0
+    var quantityFull  = 0.0F
+    var quantityComplete  = 0.0F
 
     init {
         this.clientName = retrofit.getClientName()
