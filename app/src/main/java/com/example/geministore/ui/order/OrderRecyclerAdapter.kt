@@ -48,8 +48,8 @@ class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataMode
     }
 
     private fun quantityText(context: Context, orderGoods: DataModelOrderGoods): Spannable {
-        val quantityFull = orderGoods.completeGoods.toString()
-        val quantityComplete = orderGoods.totalGoods.toString()
+        val quantityFull = orderGoods.totalGoods.toString()
+        val quantityComplete = orderGoods.completeGoods.toString()
 
         val highlightingColor = if (orderGoods.completeGoods >= orderGoods.totalGoods){
             context.getColor(R.color.green)

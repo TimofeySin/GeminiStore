@@ -11,8 +11,8 @@ import com.example.geministore.services.retrofit.Common
 
 
 class ServiceGlide {
-    private val server = Common.getUrl()
-    private val url = "/bliznetsy_bitrix/hs/BitrixDelivery/getImage"
+    private val server = "http://31.135.9.35"
+    private val url = "/bliznetsy/hs/BitrixDelivery/getImage"
     private val username = "Android"
     private val password = "123"
 
