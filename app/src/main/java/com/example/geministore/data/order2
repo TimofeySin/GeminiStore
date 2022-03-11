@@ -1,0 +1,32 @@
+{
+"idOrder": "00ЦБ-000096",
+"comment_client": "",
+"comment_order": "[Номер документа на сайте: 221] ",
+"goods": [
+{
+"id": "4HFHMWN_BJ",
+"comment_good": "",
+"name_goods": "Чай Тесс Флирт зелен с добавками 100г        (648-15)",
+"price_good": 77.6,
+"good_total": 1,
+"good_complete": 0,
+"codes": [
+{
+"code": "24605246006481"
+},
+{
+"code": "4605246006487"
+}
+]
+},
+{
+"id": "67RG2ZDC1C",
+"comment_good": "",
+"name_goods": "Доставка заказа",
+"price_good": 290,
+"good_total": 1,
+"good_complete": 0,
+"codes": []
+}
+]
+}
