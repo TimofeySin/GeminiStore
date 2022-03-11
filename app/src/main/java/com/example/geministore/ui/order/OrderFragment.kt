@@ -102,12 +102,13 @@ class OrderFragment : BaseFragment() {
         val totalAlert: TextView = binding.totalAlert
         val alert: CardView = binding.alert
         alertAnimation = ObjectAnimator.ofFloat(alert, View.ALPHA, 1F, 0F).apply {
-            startDelay = 2000
+          //  startDelay = 2000
             duration = 3000
             doOnStart {
                 alert.visibility = View.VISIBLE
                 alert.alpha = 1F
             }
+
         }
         orderViewModel.alertModel.observe(viewLifecycleOwner) {
             alert.visibility = it.alertVisible

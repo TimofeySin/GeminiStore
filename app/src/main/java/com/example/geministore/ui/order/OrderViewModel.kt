@@ -83,11 +83,11 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
 
     fun responseCode(code: String) {
         var codeLocal = code
-        var weight = ""
+        var weight = 0F
         var itWeight = false
-        if (code.substring(0, 1) == weightBarcode) {
+        if (code.substring(0, 2) == weightBarcode) {
             codeLocal = code.substring(2, 7)
-            weight = code.substring(8, 11)
+            weight = code.substring(7, 12).toFloat()/1000F
             itWeight = true
         }
         dataModelOrder?.let { itDataModel ->
