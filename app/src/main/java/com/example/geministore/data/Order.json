@@ -1,102 +1,100 @@
 {
-  "idOrder": "00ЦБ-000097",
-  "comment_client": "не адекват, мажется зеленкой",
-  "comment_order": "полить зеленкой все продукты",
-  "goods": [
-    {
-      "id": 1,
-      "comment_good": "с плесенью обязательно!",
-      "name_goods": "Хлеб Российский, свежайший",
-      "price_good": 120.25,
-      "good_total": 2,
-      "good_complete": 0,
-      "codes": [
-        {
-          "code": "4602242022947"
-        },
-        {
-          "code": "123567"
-        },
-        {
-          "code": "1235678"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "comment_good": "",
-      "name_goods": "Масло сливочное, 82%",
-      "price_good": 325.85,
-      "good_total": 3,
-      "good_complete": 3,
-      "codes": [
-        {
-          "code": "4605105047316"
-        },
-        {
-          "code": "12353367"
-        },
-        {
-          "code": "123335678"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "comment_good": "",
-      "name_goods": "Сыр Российский, -1%",
-      "price_good": 45550.25,
-      "good_total": 12,
-      "good_complete": 2,
-      "codes": [
-        {
-          "code": "9002859108891"
-        },
-        {
-          "code": "123567"
-        },
-        {
-          "code": "1235678"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "comment_good": "с песком, ка кобещают на упаковке!",
-      "name_goods": "Сахар песок",
-      "price_good": 40.25,
-      "good_total": 17.986,
-      "good_complete": 0,
-      "codes": [
-        {
-          "code": "4602242ыв022947"
-        },
-        {
-          "code": "123567"
-        },
-        {
-          "code": "1235678"
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "comment_good": "только обрезки",
-      "name_goods": "Колбаса",
-      "price_good": 10.25,
-      "good_total": 15.8,
-      "good_complete": 0,
-      "codes": [
-        {
-          "code": "46022ф42022947"
-        },
-        {
-          "code": "123567"
-        },
-        {
-          "code": "1235678"
-        }
-      ]
-    }
-  ]
+"idOrder": "00ЦБ-000020",
+"comment_client": "",
+"comment_order": "[Номер документа на сайте: 261] ",
+"goods": [
+{
+"id": "695B8CBC1C",
+"comment_good": "",
+"name_goods": "а Йогурт 2.7%-3.5% малина/ананас+гранола Молоч Культура 215",
+"price_good": 62.8,
+"good_total": 1,
+"good_complete": 0,
+"codes": [
+{
+"code": "4680012922406"
+}
+]
+},
+{
+"id": "26P0USO58j",
+"comment_good": "",
+"name_goods": "Икра лососев (горбуша) /Меридиан/ 115 ст/ \\d.r.\\ФМ\\от.",
+"price_good": 730.7,
+"good_total": 1,
+"good_complete": 0,
+"codes": [
+{
+"code": "4601132997426"
+}
+]
+},
+{
+"id": "S280Y54JOL",
+"comment_good": "",
+"name_goods": "**Сельдь филе Матиас /Бремор/ 250г пл/уп\\pr.\\бан.",
+"price_good": 97.46,
+"good_total": 60,
+"good_complete": 0,
+"codes": [
+{
+"code": "4810168000011"
+}
+]
+},
+{
+"id": "0L10PZ6EKL",
+"comment_good": "",
+"name_goods": "Теша скумбрии х/к /Сити-Фуд/ /к.р.\\от.\\Адмирал",
+"price_good": 40,
+"good_total": 0.7,
+"good_complete": 0,
+"codes": [
+{
+"code": "26661"
+},
+{
+"code": "60258"
+}
+]
+},
+{
+"id": "67RG2ZDC1C",
+"comment_good": "",
+"name_goods": "Доставка заказа",
+"price_good": 290,
+"good_total": 1,
+"good_complete": 0,
+"codes": []
+},
+{
+"id": "5N1GH4J_OS",
+"comment_good": "",
+"name_goods": "n.g:Птрд Свечи Бенгальские 160 Новогодние 6шт 9130 /ЧЛ160/ n.g",
+"price_good": 35,
+"good_total": 1,
+"good_complete": 0,
+"codes": [
+{
+"code": "4607176391305"
+}
+]
+},
+{
+"id": "2TR16WV2Ml",
+"comment_good": "",
+"name_goods": "Конфеты Мишка косолапый (медовый грильяж) /Красный Октябрь/",
+"price_good": 400,
+"good_total": 0.3,
+"good_complete": 0,
+"codes": [
+{
+"code": "10869"
+},
+{
+"code": "22334"
+}
+]
+}
+]
 }
