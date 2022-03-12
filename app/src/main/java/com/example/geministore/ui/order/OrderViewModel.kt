@@ -3,16 +3,15 @@ package com.example.geministore.ui.order
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.geministore.R
 import com.example.geministore.services.retrofit.Common
 import com.example.geministore.services.retrofit.RetrofitDataModelOrder
+import com.example.geministore.services.retrofit.TakeInternetData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,10 +24,6 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     private var retrofitDataModelOrderGlobal: RetrofitDataModelOrder? = null
     private val weightBarcode = "11"
     private var newModelOrderGoods: DataModelOrderGoods? = null
-    private val ALERT_ADD = 1
-    private val ALERT_ADD_NEW = 2
-    private val ALERT_ERRORE = 3
-    private val ALERT_NOT_FOUND = 4
     private val percentWeight = 1.15
 
     private val _commentClient = MutableLiveData<String>().apply { value = "" }
@@ -50,35 +45,20 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     }
     val alertModel: LiveData<AlertModel> = _alertModel
 
-    private val _updaterAdapter = MutableLiveData<UpdaterAdapter>().apply { value = UpdaterAdapter(0,0) }
+    private val _updaterAdapter =
+        MutableLiveData<UpdaterAdapter>().apply { value = UpdaterAdapter(0, 0) }
     val updaterAdapter: LiveData<UpdaterAdapter> = _updaterAdapter
 
     fun fetchData(idOrder: String?) {
         CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val apiService = Common.makeRetrofitService
-                val retrofitDataModelOrder = apiService.getOrderAsync(idOrder)
-                retrofitDataModelOrderGlobal = retrofitDataModelOrder
-                dataModelOrder = DataModelOrder(retrofitDataModelOrder)
-                dataModelOrder?.let {
-                    _commentClient.value = it.commentClient
-                    _commentOrder.value = it.commentOrder
-                    _idOrder.value = it.idOrder
-                    _orderGoods.value = it.orderGoods
-                }
-            } catch (notUseFullException: Exception) {
-                val useFullException = wrapToBeTraceable(notUseFullException)
-                Log.d("crash",
-                    useFullException.printStackTrace().toString())   // or whatever logging
+            dataModelOrder = TakeInternetData().getOrderAsync(idOrder)
+            dataModelOrder?.let {
+                _commentClient.value = it.commentClient
+                _commentOrder.value = it.commentOrder
+                _idOrder.value = it.idOrder
+                _orderGoods.value = it.orderGoods
             }
         }
-    }
-
-    private fun wrapToBeTraceable(throwable: Throwable): Throwable {
-        if (throwable is HttpException) {
-            return Exception("${throwable.response()}", throwable)
-        }
-        return throwable
     }
 
     fun responseCode(code: String) {
@@ -87,42 +67,42 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
         var itWeight = false
         if (code.substring(0, 2) == weightBarcode) {
             codeLocal = code.substring(2, 7)
-            weight = code.substring(7, 12).toFloat()/1000F
+            weight = code.substring(7, 12).toFloat() / 1000F
             itWeight = true
         }
         dataModelOrder?.let { itDataModel ->
-            itDataModel.orderGoods.forEachIndexed { index,itGood ->
+            itDataModel.orderGoods.forEachIndexed { index, itGood ->
                 itGood.codes.forEach { itCode ->
                     if (itCode.code == codeLocal) {
                         if (itWeight) {
-                            if (itGood.completeGoods >= itGood.totalGoods * percentWeight) {
-                                openAlert(ALERT_ERRORE,
+                            if (itGood.completeGoods + weight >= itGood.totalGoods * percentWeight) {
+                                openAlert(AlertFrame.ALERT_ERROR_WEIGHT,
                                     itGood.completeGoods,
                                     itGood.totalGoods,
                                     itGood.nameGoods)
                             } else {
-                                itGood.completeGoods += weight.toFloat()
-                                openAlert(ALERT_ADD,
+                                itGood.completeGoods += weight
+                                openAlert(AlertFrame.ALERT_ADD,
                                     itGood.completeGoods,
                                     itGood.totalGoods,
                                     itGood.nameGoods)
                             }
                         } else {
                             if (itGood.completeGoods >= itGood.totalGoods) {
-                                openAlert(ALERT_ERRORE,
+                                openAlert(AlertFrame.ALERT_ERROR,
                                     itGood.completeGoods,
                                     itGood.totalGoods,
                                     itGood.nameGoods)
                             } else {
                                 itGood.completeGoods++
-                                openAlert(ALERT_ADD,
+                                openAlert(AlertFrame.ALERT_ADD,
                                     itGood.completeGoods,
                                     itGood.totalGoods,
                                     itGood.nameGoods)
                             }
                         }
 
-                        _updaterAdapter.value = UpdaterAdapter(1,index)
+                        _updaterAdapter.value = UpdaterAdapter(1, index)
 
                         return
                     }
@@ -130,18 +110,17 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
             }
             fetchGoodsData(codeLocal)
             newModelOrderGoods?.let {
-                openAlert(ALERT_ADD_NEW, 0F, 0F, it.nameGoods)
+                openAlert(AlertFrame.ALERT_ADD_NEW, 0F, 0F, it.nameGoods)
                 return
             }
-            openAlert(ALERT_NOT_FOUND, 0F, 0F, codeLocal)
+            openAlert(AlertFrame.ALERT_NOT_FOUND, 0F, 0F, codeLocal)
         }
     }
 
-    private fun openAlert(alertCode: Int, complete: Float, total: Float, desc: String) {
-
+    private fun openAlert(alertCode: AlertFrame, complete: Float, total: Float, desc: String) {
+        val del = contextApp.getText(R.string.alert_delim).toString()
         when (alertCode) {
-            ALERT_ADD -> {
-                val del = contextApp.getText(R.string.alert_delim).toString()
+            AlertFrame.ALERT_ADD -> {
                 _alertModel.value = AlertModel(
                     buttonVisible = View.INVISIBLE,
                     alertVisible = View.VISIBLE,
@@ -150,17 +129,16 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                     descAlert = desc,
                     colorAlert = contextApp.getColor(R.color.green))
             }
-            ALERT_ADD_NEW -> {
+            AlertFrame.ALERT_ADD_NEW -> {
                 _alertModel.value = AlertModel(
-                    buttonVisible = View.VISIBLE,
+                    buttonVisible = View.INVISIBLE,
                     alertVisible = View.VISIBLE,
                     headAlert = contextApp.getText(R.string.alert_add_new).toString(),
                     totalAlert = "",
                     descAlert = desc,
                     colorAlert = contextApp.getColor(R.color.red))
             }
-            ALERT_ERRORE -> {
-                val del = contextApp.getText(R.string.alert_delim).toString()
+            AlertFrame.ALERT_ERROR -> {
                 _alertModel.value = AlertModel(
                     buttonVisible = View.INVISIBLE,
                     alertVisible = View.VISIBLE,
@@ -169,7 +147,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                     descAlert = desc,
                     colorAlert = contextApp.getColor(R.color.orange))
             }
-            ALERT_NOT_FOUND -> {
+            AlertFrame.ALERT_NOT_FOUND -> {
                 _alertModel.value = AlertModel(
                     buttonVisible = View.INVISIBLE,
                     alertVisible = View.VISIBLE,
@@ -178,42 +156,39 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                     descAlert = desc,
                     colorAlert = contextApp.getColor(R.color.red))
             }
+            AlertFrame.ALERT_ERROR_WEIGHT -> {
+                _alertModel.value = AlertModel(
+                    buttonVisible = View.VISIBLE,
+                    alertVisible = View.VISIBLE,
+                    headAlert = contextApp.getText(R.string.alert_error).toString(),
+                    totalAlert = "$complete $del $total",
+                    descAlert = desc,
+                    colorAlert = contextApp.getColor(R.color.orange))
+            }
         }
     }
 
     fun saveData() {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val apiService = Common.makeRetrofitService
-                val res = apiService.saveOrder(retrofitDataModelOrderGlobal)
-                Log.d("crashsaveData", res.toString())
-            } catch (notUseFullException: Exception) {
-                Log.d("crashsaveData",
-                    notUseFullException.printStackTrace().toString())   // or whatever logging
+        retrofitDataModelOrderGlobal?.let {
+            CoroutineScope(Dispatchers.Main).launch {
+                TakeInternetData().saveDataOrder(it)
             }
         }
     }
 
     private fun fetchGoodsData(code: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val apiService = Common.makeRetrofitService
-                val retrofitDataModelGoods = apiService.getGoodsAsync(code)
-                newModelOrderGoods = DataModelOrderGoods(retrofitDataModelGoods)
-            } catch (notUseFullException: Exception) {
-                val useFullException = wrapToBeTraceable(notUseFullException)
-                Log.d("crash",
-                    useFullException.printStackTrace().toString())   // or whatever logging
-            }
+            newModelOrderGoods = TakeInternetData().getGoodsAsync(code)
+
         }
     }
 
     fun addNewGoods() {
-        newModelOrderGoods?.let { itDataNewGoods->
+        newModelOrderGoods?.let { itDataNewGoods ->
             dataModelOrder?.let {
                 val size = it.orderGoods.size
                 it.orderGoods.add(itDataNewGoods)
-                _updaterAdapter.value = UpdaterAdapter(2,size)
+                _updaterAdapter.value = UpdaterAdapter(2, size)
             }
         }
     }

@@ -1,15 +1,12 @@
 package com.example.geministore.ui.orderList
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.geministore.services.retrofit.Common
+import com.example.geministore.services.retrofit.TakeInternetData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-
 
 
 class OrderListViewModel : ViewModel() {
@@ -26,29 +23,16 @@ class OrderListViewModel : ViewModel() {
     val refreshStatus: LiveData<Boolean> = _refreshStatus
 
 
-    fun fetchData() {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val apiService = Common.makeRetrofitService
-                val response = apiService.getOrderListAsync()
-                val listOfDataOrder : MutableList<DataModelOrderList> = mutableListOf()
-                response.forEach {
-                    listOfDataOrder.add(DataModelOrderList(it))
-                }
-                _orderList.value = listOfDataOrder
-                _refreshStatus.value = false
-            } catch  (notUseFullException: Exception) {
-                val useFullException = wrapToBeTraceable(notUseFullException)
-               Log.d("crash",useFullException.printStackTrace().toString())   // or whatever logging
-            }
-        }
+       fun fetchData() {
+          CoroutineScope(Dispatchers.Main).launch {
+              val listOfDataOrder = TakeInternetData().getOrderListAsync()
+              _orderList.value = listOfDataOrder
+              _refreshStatus.value =false
+          }
+
+
     }
-    private fun wrapToBeTraceable(throwable: Throwable): Throwable {
-        if (throwable is HttpException) {
-            return Exception("${throwable.response()}", throwable)
-        }
-        return throwable
-    }
+
 
 }
 

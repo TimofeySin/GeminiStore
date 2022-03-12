@@ -12,6 +12,8 @@ import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.animation.doOnCancel
+import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -63,12 +65,12 @@ class OrderFragment : Fragment() {
         observeView(orderViewModel)
 
         binding.cancelAlertButton.setOnClickListener {
-            binding.alert.visibility = View.INVISIBLE
+            binding.alert.alpha = 0F
         }
 
         binding.addAlertButton.setOnClickListener {
             orderViewModel.addNewGoods()
-            binding.alert.visibility = View.INVISIBLE
+            binding.alert.alpha = 0F
         }
 
         return root
@@ -105,14 +107,8 @@ class OrderFragment : Fragment() {
         alertAnimation = ObjectAnimator.ofFloat(alert, View.ALPHA, 1F, 0F).apply {
             startDelay = 1000
             duration = 2000
-            doOnStart {
-                alert.visibility = View.VISIBLE
-                alert.alpha = 1F
             }
-
-        }
         orderViewModel.alertModel.observe(viewLifecycleOwner) {
-            alert.visibility = it.alertVisible
             buttonLayout.visibility = it.buttonVisible
             headAlert.text = it.headAlert
             descAlert.text = it.descAlert
@@ -120,9 +116,16 @@ class OrderFragment : Fragment() {
             alert.setCardBackgroundColor(it.colorAlert)
 
             alertAnimation?.let { itAnimation ->
-                    itAnimation.cancel()
-                    alert.alpha = 1F
-                    itAnimation.start()
+                when {
+                    it.buttonVisible == 0 -> {
+                        itAnimation.cancel()
+                        alert.alpha = 1F
+                    }
+                    itAnimation.isRunning || it.alertVisible == 0-> {
+                        alert.alpha = 1F
+                        itAnimation.start()
+                    }
+                }
             }
         }
     }

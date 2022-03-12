@@ -11,6 +11,8 @@ class DataModelOrderGoods(orderGoods: RetrofitDataModelOrderGoods) {
      var id: String = ""
      var codes: MutableList<DataModelCodes> = mutableListOf()
 
+    constructor() : this(RetrofitDataModelOrderGoods())
+
     init {
         this.priceGoods = orderGoods.getPriceGoods()
         this.totalGoods = orderGoods.getTotalGoods()

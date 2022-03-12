@@ -29,11 +29,11 @@ class OrderListFragment : Fragment() {
 
         _binding = FragmentOrderListBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        orderListViewModel.fetchData()
 
+        fetchData(orderListViewModel)
        val swipeRefresh = binding.swiperefresh
         swipeRefresh.setOnRefreshListener {
-            orderListViewModel.fetchData()
+            fetchData(orderListViewModel)
             orderListViewModel.refreshStatus.observe(viewLifecycleOwner) {
             swipeRefresh.isRefreshing = it
             }
@@ -47,6 +47,11 @@ class OrderListFragment : Fragment() {
         return root
     }
 
+
+
+     fun fetchData(orderListViewModel : OrderListViewModel){
+        orderListViewModel.fetchData()
+    }
 
 
     override fun onDestroyView() {

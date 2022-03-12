@@ -62,7 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="8sp"
-            android:visibility="invisible">
+            android:alpha="0"
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
