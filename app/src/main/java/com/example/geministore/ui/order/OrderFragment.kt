@@ -13,15 +13,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.animation.doOnStart
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.databinding.FragmentOrderBinding
-import com.example.geministore.ui.BaseFragment
 
 
-class OrderFragment : BaseFragment() {
+
+class OrderFragment : Fragment() {
 
     private var _binding: FragmentOrderBinding? = null
 
@@ -102,8 +103,8 @@ class OrderFragment : BaseFragment() {
         val totalAlert: TextView = binding.totalAlert
         val alert: CardView = binding.alert
         alertAnimation = ObjectAnimator.ofFloat(alert, View.ALPHA, 1F, 0F).apply {
-          //  startDelay = 2000
-            duration = 3000
+            startDelay = 1000
+            duration = 2000
             doOnStart {
                 alert.visibility = View.VISIBLE
                 alert.alpha = 1F
@@ -119,15 +120,9 @@ class OrderFragment : BaseFragment() {
             alert.setCardBackgroundColor(it.colorAlert)
 
             alertAnimation?.let { itAnimation ->
-                if(it.alertVisible == 0){
-                    alert.alpha = 1F
-                }
-                if (it.buttonVisible == 0 || itAnimation.isRunning) {
                     itAnimation.cancel()
-                }
-                if (!itAnimation.isRunning && it.buttonVisible == 0) {
+                    alert.alpha = 1F
                     itAnimation.start()
-                }
             }
         }
     }
