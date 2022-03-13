@@ -23,8 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-   // private var targetFragmentOrder : Fragment? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         val intent = Intent(applicationContext,UrovoConnectionService ::class.java)
-       // ContextCompat.startForegroundService(this,intent)
         val serviceConnection = object : ServiceConnection{
             override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
                 Log.d("BlueT", "MainActivity onServiceConnected");
@@ -57,7 +54,8 @@ class MainActivity : AppCompatActivity() {
                 Log.d("BlueT", "MainActivity onServiceConnected");
             }
         }
-    this.bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE)
+
+        this.bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
 }

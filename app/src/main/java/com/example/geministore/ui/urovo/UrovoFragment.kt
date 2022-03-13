@@ -1,6 +1,7 @@
 package com.example.geministore.ui.urovo
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,6 +52,13 @@ class UrovoFragment : Fragment() {
                     position: Int,
                     id: Long,
                 ) {
+
+
+                    val sharedPref = activity?.getSharedPreferences(
+                        "Bluetooth", Context.MODE_PRIVATE)
+
+
+
                     urovoNameId.text = urovoId[position]
                 }
 

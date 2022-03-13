@@ -1,21 +1,24 @@
 package com.example.geministore.services.urovo
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.*
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.content.withStyledAttributes
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.geministore.MainActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.StandardCharsets
@@ -24,102 +27,131 @@ import java.util.*
 
 class UrovoConnectionService : Service() {
 
-    private var currentSocket: BluetoothSocket? = null
     private val idBluetoothSocket = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
-    val CHANNEL_ID = "UrovoConnectionServiceChannel"
-    val NOTIFICATION_ID = 1
+    private val CHANNEL_ID = "UrovoConnectionServiceChannel"
+    private val NOTIFICATION_ID = 1
     private val readBuffer = ByteArray(128)
 
     override fun onBind(p0: Intent?): IBinder {
         Log.d("BlueT", "onBind");
-        startConnection()
+        createNotification()
+        getCoroutineScopeInputStream()
         return Binder()
     }
 
-    private fun startConnection() {
 
 
-        createNotificationChannel()
+    private fun getCoroutineScopeInputStream() {
 
-        val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
+        CoroutineScope(Dispatchers.IO).launch {
+              getAsyncInputStream()
+        }
 
-        val notification: Notification =
-            NotificationCompat.Builder(this, CHANNEL_ID)
-               .setContentIntent(pendingIntent)
-                .build()
-        startForeground(NOTIFICATION_ID, notification)
-        connect()
     }
 
-    private fun createNotificationChannel() {
+
+    private fun createNotification() {
         val serviceChannel = NotificationChannel(CHANNEL_ID,
             "Urovo Connection Service Channel",
             NotificationManager.IMPORTANCE_DEFAULT)
         val manager = getSystemService(
             NotificationManager::class.java)
         manager?.createNotificationChannel(serviceChannel)
+
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
+
+        val notification: Notification =
+            NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentIntent(pendingIntent)
+                .build()
+        startForeground(NOTIFICATION_ID, notification)
     }
 
-
-    @SuppressLint("MissingPermission")
-    private fun connect() {
-        CoroutineScope(Dispatchers.IO).launch {
+    private fun getBluetoothAdapter(): BluetoothAdapter? {
+        var bluetoothAdapter: BluetoothAdapter? = null
             val bluetoothManager =
                 getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?
             bluetoothManager?.let { itBluetoothManager ->
-                val bluetoothAdapter = itBluetoothManager.adapter
-                bluetoothAdapter?.let { itAdapter ->
-                    if (itAdapter.isEnabled) {
-                        val deviceAddress =
-                            "DC:0D:30:DD:81:70"  //Вот тут надо получать из фрагмента
-                        val device = itAdapter.getRemoteDevice(deviceAddress)
-                        device?.let { idDevice ->
-                            currentSocket =
-                                idDevice.createRfcommSocketToServiceRecord(idBluetoothSocket)
-                            itAdapter.cancelDiscovery()
-                            while (true) {
-                                try {
-                                    currentSocket?.connect()
-                                    Log.d("BlueT", "connect Success")
-                                    onConnect()
-                                    break
-                                } catch (e: IOException) {
-                                    Log.d("BlueT", e.toString())
-                                    currentSocket?.close()
-                                    currentSocket =
-                                        idDevice.createRfcommSocketToServiceRecord(idBluetoothSocket)
+                bluetoothAdapter = itBluetoothManager.adapter
+                bluetoothAdapter?.let { itAdapter -> bluetoothAdapter = itAdapter }
+            }
+        return bluetoothAdapter
+    }
 
-                                    delay(1000)
-                                }
-                            }
-                        }
-                    }
+    private fun getBluetoothDevice(bluetoothAdapter: BluetoothAdapter): BluetoothDevice? {
+        var bluetoothDevice: BluetoothDevice? = null
+        val deviceAddress =
+            "DC:0D:30:DD:81:70"  //Вот тут надо получать из фрагмента
+        bluetoothDevice = bluetoothAdapter.getRemoteDevice(deviceAddress)
+        return bluetoothDevice
+    }
+
+    private fun checkPermission(): Boolean {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        return false
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getDeviceSocket(device: BluetoothDevice): BluetoothSocket? {
+        var socket: BluetoothSocket? = null
+        try {
+            socket = device.createRfcommSocketToServiceRecord(idBluetoothSocket)
+            socket.connect()
+        } catch (e: IOException) {
+            println("!!!!!!!!!!!!!!!!! " + e.message.toString() + " !!!!!!!!!!!!!!!")
+            socket?.close()
+        }
+        return socket
+    }
+
+
+    private suspend fun getAsyncInputStream() {
+        coroutineScope {
+            val deferredStream = async {
+                var stream: InputStream? = null
+                while (stream == null) {
+                    stream = getInputStream()
                 }
+                return@async stream
             }
+            readStream(deferredStream.await())
         }
     }
 
-    private fun onConnect() {
-        if (currentSocket?.isConnected == true) {
-            val inputStream = currentSocket?.inputStream
-            CoroutineScope(Dispatchers.IO).launch {
-                readStream(inputStream)
+    private fun getInputStream(): InputStream? {
+        if (!checkPermission()) return null
+        var socket: BluetoothSocket? = null
+        val bluetoothAdapter: BluetoothAdapter? = getBluetoothAdapter()
+        var bluetoothDevice: BluetoothDevice? = null
+
+        bluetoothAdapter?.let {
+            bluetoothDevice = getBluetoothDevice(it)
+        }
+        bluetoothDevice?.let {
+            socket = getDeviceSocket(it)
+        }
+        socket?.let {
+            bluetoothAdapter?.cancelDiscovery()
+            if (it.isConnected) {
+                return it.inputStream
             }
         }
+        return null
     }
 
-    private fun readStream(readerStream: InputStream?) {
+
+    private fun readStream(readerStream: InputStream) {
         var codeBuffer = ""
-        val intent = Intent("ServiceBarcode")
-        val instants = LocalBroadcastManager.getInstance(this)
-        while (true) {
-            Log.d("BlueT", "Start while")
-            Arrays.fill(readBuffer, 0.toByte())
-            readerStream?.let {
-                val numBytes = it.read(readBuffer)
+        try {
+            while (true) {
+                Arrays.fill(readBuffer, 0.toByte())
+                val numBytes = readerStream.read(readBuffer)
                 val tmp: ByteArray = readBuffer.copyOf(numBytes)
-
                 var done = false
                 var data = String(tmp, StandardCharsets.UTF_8)
                 if (data.endsWith("\r") || data.endsWith("\n")) {
@@ -130,14 +162,26 @@ class UrovoConnectionService : Service() {
 
                 codeBuffer += data
                 if (done) {
-                    Log.d("BlueT", "Received barcode: $codeBuffer")
-
-
-                    intent.putExtra("barcode", codeBuffer)
-                    instants.sendBroadcast(intent)
+                    sendIntent(codeBuffer)
                     codeBuffer = ""
                 }
             }
+        }catch (e:Exception)
+            {
+                getCoroutineScopeInputStream()
+                println("!!!!!!!!!!!!UROVO!!!!!!!!!!! "+e.message.toString())
         }
     }
+
+    private fun sendIntent(codeBuffer : String){
+        val intent = Intent("ServiceBarcode")
+        val instants = LocalBroadcastManager.getInstance(this)
+        intent.putExtra("barcode", codeBuffer)
+        instants.sendBroadcast(intent)
+        Log.d("BlueT", "Received barcode: $codeBuffer")
+    }
+
+
+
+
 }
