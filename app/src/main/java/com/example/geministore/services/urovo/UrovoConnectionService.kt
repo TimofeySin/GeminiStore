@@ -21,6 +21,7 @@ import com.example.geministore.MainActivity
 import kotlinx.coroutines.*
 import java.io.IOException
 import java.io.InputStream
+import java.lang.Thread.sleep
 import java.nio.charset.StandardCharsets
 import java.util.*
 
@@ -80,11 +81,10 @@ class UrovoConnectionService : Service() {
     }
 
     private fun getBluetoothDevice(bluetoothAdapter: BluetoothAdapter): BluetoothDevice? {
-        var bluetoothDevice: BluetoothDevice? = null
         val deviceAddress =
             "DC:0D:30:DD:81:70"  //Вот тут надо получать из фрагмента
-        bluetoothDevice = bluetoothAdapter.getRemoteDevice(deviceAddress)
-        return bluetoothDevice
+        return bluetoothAdapter.getRemoteDevice(deviceAddress)
+
     }
 
     private fun checkPermission(): Boolean {
@@ -103,7 +103,6 @@ class UrovoConnectionService : Service() {
             socket = device.createRfcommSocketToServiceRecord(idBluetoothSocket)
             socket.connect()
         } catch (e: IOException) {
-            println("!!!!!!!!!!!!!!!!! " + e.message.toString() + " !!!!!!!!!!!!!!!")
             socket?.close()
         }
         return socket
@@ -116,6 +115,7 @@ class UrovoConnectionService : Service() {
                 var stream: InputStream? = null
                 while (stream == null) {
                     stream = getInputStream()
+                    sleep(2000)
                 }
                 return@async stream
             }
