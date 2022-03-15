@@ -11,13 +11,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.withStyledAttributes
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.geministore.MainActivity
+import com.example.geministore.sharedPref
 import kotlinx.coroutines.*
 import java.io.IOException
 import java.io.InputStream
@@ -40,56 +43,33 @@ class UrovoConnectionService : Service() {
         return Binder()
     }
 
-
-
     private fun getCoroutineScopeInputStream() {
-
         CoroutineScope(Dispatchers.IO).launch {
-              getAsyncInputStream()
+            getAsyncInputStream()
         }
-
-    }
-
-
-    private fun createNotification() {
-        val serviceChannel = NotificationChannel(CHANNEL_ID,
-            "Urovo Connection Service Channel",
-            NotificationManager.IMPORTANCE_DEFAULT)
-        val manager = getSystemService(
-            NotificationManager::class.java)
-        manager?.createNotificationChannel(serviceChannel)
-
-        val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
-
-        val notification: Notification =
-            NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentIntent(pendingIntent)
-                .build()
-        startForeground(NOTIFICATION_ID, notification)
     }
 
     private fun getBluetoothAdapter(): BluetoothAdapter? {
         var bluetoothAdapter: BluetoothAdapter? = null
-            val bluetoothManager =
-                getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?
-            bluetoothManager?.let { itBluetoothManager ->
-                bluetoothAdapter = itBluetoothManager.adapter
-                bluetoothAdapter?.let { itAdapter -> bluetoothAdapter = itAdapter }
-            }
+        val bluetoothManager =
+            getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?
+        bluetoothManager?.let { itBluetoothManager ->
+            bluetoothAdapter = itBluetoothManager.adapter
+            bluetoothAdapter?.let { itAdapter -> bluetoothAdapter = itAdapter }
+        }
         return bluetoothAdapter
     }
 
     private fun getBluetoothDevice(bluetoothAdapter: BluetoothAdapter): BluetoothDevice? {
-        val deviceAddress =
-            "DC:0D:30:DD:81:70"  //Вот тут надо получать из фрагмента
+        val deviceAddress = sharedPref(applicationContext).getDeviceID()
         return bluetoothAdapter.getRemoteDevice(deviceAddress)
-
     }
 
     private fun checkPermission(): Boolean {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.BLUETOOTH_CONNECT
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
             return true
         }
@@ -107,7 +87,6 @@ class UrovoConnectionService : Service() {
         }
         return socket
     }
-
 
     private suspend fun getAsyncInputStream() {
         coroutineScope {
@@ -144,7 +123,6 @@ class UrovoConnectionService : Service() {
         return null
     }
 
-
     private fun readStream(readerStream: InputStream) {
         var codeBuffer = ""
         try {
@@ -166,19 +144,39 @@ class UrovoConnectionService : Service() {
                     codeBuffer = ""
                 }
             }
-        }catch (e:Exception)
-            {
-                getCoroutineScopeInputStream()
-                println("!!!!!!!!!!!!UROVO!!!!!!!!!!! "+e.message.toString())
+        } catch (e: Exception) {
+            getCoroutineScopeInputStream()
+            println("!!!!!!!!!!!!UROVO!!!!!!!!!!! " + e.message.toString())
         }
     }
 
-    private fun sendIntent(codeBuffer : String){
+    private fun sendIntent(codeBuffer: String) {
         val intent = Intent("ServiceBarcode")
         val instants = LocalBroadcastManager.getInstance(this)
         intent.putExtra("barcode", codeBuffer)
         instants.sendBroadcast(intent)
         Log.d("BlueT", "Received barcode: $codeBuffer")
+    }
+
+    private fun createNotification() {
+        val serviceChannel = NotificationChannel(
+            CHANNEL_ID,
+            "Urovo Connection Service Channel",
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        val manager = getSystemService(
+            NotificationManager::class.java
+        )
+        manager?.createNotificationChannel(serviceChannel)
+
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
+
+        val notification: Notification =
+            NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentIntent(pendingIntent)
+                .build()
+        startForeground(NOTIFICATION_ID, notification)
     }
 
 

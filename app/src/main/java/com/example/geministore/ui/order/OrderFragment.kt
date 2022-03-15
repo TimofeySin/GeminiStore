@@ -12,16 +12,12 @@ import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.animation.doOnCancel
-import androidx.core.animation.doOnEnd
-import androidx.core.animation.doOnStart
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.databinding.FragmentOrderBinding
-
 
 
 class OrderFragment : Fragment() {

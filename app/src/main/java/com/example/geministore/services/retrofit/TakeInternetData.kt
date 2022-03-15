@@ -1,8 +1,8 @@
 package com.example.geministore.services.retrofit
 
 import android.util.Log
-import com.example.geministore.ui.order.DataModelOrder
-import com.example.geministore.ui.order.DataModelOrderGoods
+import com.example.geministore.ui.order.orderModels.DataModelOrder
+import com.example.geministore.ui.order.orderModels.DataModelOrderGoods
 import com.example.geministore.ui.orderList.DataModelOrderList
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch

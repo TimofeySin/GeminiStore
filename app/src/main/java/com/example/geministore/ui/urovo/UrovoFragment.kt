@@ -1,7 +1,5 @@
 package com.example.geministore.ui.urovo
 
-
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +8,6 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.geministore.databinding.FragmentSettingUrovoBinding
-
 
 class UrovoFragment : Fragment() {
 
@@ -29,9 +26,6 @@ class UrovoFragment : Fragment() {
         _binding = FragmentSettingUrovoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        var urovoId = mutableListOf<String>()
-        val urovoNameId = binding.urovoNameId
-
 
         if (urovoViewModel.bluetoothPermissionWasGranted(root.context)) {
             activity?.let { urovoViewModel.getBluetoothDeviceAdapter(it) }
@@ -42,24 +36,23 @@ class UrovoFragment : Fragment() {
                         androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
                         it)
             }
-            urovoViewModel.urovoBluetoothAddress.observe(viewLifecycleOwner){ urovoId = it}
+            val urovoId: TextView = binding.urovoId
+            urovoViewModel.deviceId.observe(viewLifecycleOwner) { urovoId.text = it }
+
+
+            urovoViewModel.devicePos.observe(viewLifecycleOwner) { spinnerUrovoName.setSelection(it) }
+
+
+
 
             spinnerUrovoName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
                 override fun onItemSelected(
                     parent: AdapterView<*>,
                     view: View,
                     position: Int,
                     id: Long,
                 ) {
-
-
-                    val sharedPref = activity?.getSharedPreferences(
-                        "Bluetooth", Context.MODE_PRIVATE)
-
-
-
-                    urovoNameId.text = urovoId[position]
+                    urovoViewModel.saveToSharedPreference(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -73,7 +66,7 @@ class UrovoFragment : Fragment() {
 
 
 
-
+        urovoViewModel.getFromSharedPref()
 
 
 

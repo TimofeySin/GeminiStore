@@ -3,19 +3,20 @@ package com.example.geministore.ui.order
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.geministore.R
-import com.example.geministore.services.retrofit.Common
 import com.example.geministore.services.retrofit.RetrofitDataModelOrder
 import com.example.geministore.services.retrofit.TakeInternetData
+import com.example.geministore.ui.order.orderModels.AlertModel
+import com.example.geministore.ui.order.orderModels.DataModelOrder
+import com.example.geministore.ui.order.orderModels.DataModelOrderGoods
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
+
 
 class OrderViewModel(application: Application) : AndroidViewModel(application) {
     @SuppressLint("StaticFieldLeak")
@@ -76,26 +77,30 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                     if (itCode.code == codeLocal) {
                         if (itWeight) {
                             if (itGood.completeGoods + weight >= itGood.totalGoods * percentWeight) {
-                                openAlert(AlertFrame.ALERT_ERROR_WEIGHT,
+                                openAlert(
+                                    AlertFrame.ALERT_ERROR_WEIGHT,
                                     itGood.completeGoods,
                                     itGood.totalGoods,
                                     itGood.nameGoods)
                             } else {
                                 itGood.completeGoods += weight
-                                openAlert(AlertFrame.ALERT_ADD,
+                                openAlert(
+                                    AlertFrame.ALERT_ADD,
                                     itGood.completeGoods,
                                     itGood.totalGoods,
                                     itGood.nameGoods)
                             }
                         } else {
                             if (itGood.completeGoods >= itGood.totalGoods) {
-                                openAlert(AlertFrame.ALERT_ERROR,
+                                openAlert(
+                                    AlertFrame.ALERT_ERROR,
                                     itGood.completeGoods,
                                     itGood.totalGoods,
                                     itGood.nameGoods)
                             } else {
                                 itGood.completeGoods++
-                                openAlert(AlertFrame.ALERT_ADD,
+                                openAlert(
+                                    AlertFrame.ALERT_ADD,
                                     itGood.completeGoods,
                                     itGood.totalGoods,
                                     itGood.nameGoods)

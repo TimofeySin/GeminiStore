@@ -1,4 +1,4 @@
-package com.example.geministore.ui.order
+package com.example.geministore.ui.order.orderModels
 
 class AlertModel(
     buttonVisible: Int,
