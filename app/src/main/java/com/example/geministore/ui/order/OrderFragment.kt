@@ -1,6 +1,7 @@
 package com.example.geministore.ui.order
 
 
+import android.R
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
@@ -20,17 +21,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.geministore.databinding.FragmentOrderBinding
 
 
+
 class OrderFragment : Fragment() {
 
     private var _binding: FragmentOrderBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private var orderViewModelGlobal: OrderViewModel? = null
     private var broadcastReceiver: BroadcastReceiver? = null
     private var alertAnimation: ObjectAnimator? = null
-
+    private var idOrder: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,10 +54,9 @@ class OrderFragment : Fragment() {
         val root: View = binding.root
         val bundle = arguments
         bundle?.let {
-            val idOrder = it.getString("idOrder")
+            idOrder = it.getString("idOrder").toString()
             orderViewModel.fetchData(idOrder)
         }
-
         observeView(orderViewModel)
 
         binding.cancelAlertButton.setOnClickListener {
@@ -88,9 +87,9 @@ class OrderFragment : Fragment() {
             goodsList.adapter = OrderRecyclerAdapter(it)
         }
         orderViewModel.updaterAdapter.observe(viewLifecycleOwner) {
-            when(it.action){
-                1->goodsList.adapter!!.notifyItemChanged(it.position)
-                2->goodsList.adapter!!.notifyItemInserted(it.position)
+            when (it.action) {
+                1 -> goodsList.adapter!!.notifyItemChanged(it.position)
+                2 -> goodsList.adapter!!.notifyItemInserted(it.position)
             }
             goodsList.adapter!!.notifyDataSetChanged()
         }
@@ -103,7 +102,7 @@ class OrderFragment : Fragment() {
         alertAnimation = ObjectAnimator.ofFloat(alert, View.ALPHA, 1F, 0F).apply {
             startDelay = 1000
             duration = 2000
-            }
+        }
         orderViewModel.alertModel.observe(viewLifecycleOwner) {
             buttonLayout.visibility = it.buttonVisible
             headAlert.text = it.headAlert
@@ -117,7 +116,7 @@ class OrderFragment : Fragment() {
                         itAnimation.cancel()
                         alert.alpha = 1F
                     }
-                    itAnimation.isRunning || it.alertVisible == 0-> {
+                    itAnimation.isRunning || it.alertVisible == 0 -> {
                         alert.alpha = 1F
                         itAnimation.start()
                     }
@@ -135,12 +134,17 @@ class OrderFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        activity?.actionBar?.title = idOrder
         broadcastReceiver?.let {
             LocalBroadcastManager.getInstance(requireContext())
                 .registerReceiver(it, IntentFilter("ServiceBarcode"))
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        activity?.actionBar?.title = idOrder
+    }
 
     override fun onPause() {
         super.onPause()

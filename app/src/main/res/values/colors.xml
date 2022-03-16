@@ -11,4 +11,6 @@
     <color name="orange">#FFBB12</color>
     <color name="dark_gray">#4C4C4C</color>
     <color name="green">#1BB55C</color>
+    <color name="twins">#007BB0</color>
+    <color name="twinsLight">#5790A9</color>
 </resources>

@@ -19,4 +19,6 @@ interface RetrofitServices {
     @Headers("Content-Type: application/json")
     suspend fun saveOrder(@Body requestBody: RetrofitDataModelOrder?): Response<RetrofitDataModelOrder?>?
 
+    @GET("/bliznetsy_bitrix/hs/BitrixDelivery/Check")
+    suspend fun getCheck(): Boolean
 }

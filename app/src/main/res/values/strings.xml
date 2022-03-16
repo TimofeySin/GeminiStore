@@ -9,7 +9,7 @@
     <string name="action_settings">Settings</string>
     <!-- Имена фрагментов-->
     <string name="menu_home">Список заказов</string>
-    <string name="menu_gallery">Настройка UROVO</string>
+    <string name="menu_gallery">Настройки</string>
     <string name="menu_slideshow">Заказ</string>
 
     <!-- Описания заказа в списке заказов-->
@@ -20,6 +20,10 @@
     <string name="comment_header">Комментарий:</string>
     <string name="comment_text">текст комментария, текст комментария, текст комментария, текст комментария, текст комментария, текст комментария, текст комментария.</string>
     <string name="avatar">Avatar</string>
+    <!-- Логин пароль-->
+    <string name="login">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="Enter">ВХОД</string>
 
     <!-- Описания заказа в  заказе-->
 

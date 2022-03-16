@@ -1,12 +1,17 @@
 package com.example.geministore.services.retrofit
 
+import android.text.Editable
 import android.util.Log
 import com.example.geministore.ui.order.orderModels.DataModelOrder
 import com.example.geministore.ui.order.orderModels.DataModelOrderGoods
 import com.example.geministore.ui.orderList.DataModelOrderList
+import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.HttpException
+import java.io.IOException
 
 class TakeInternetData {
     private val apiService = Common.makeRetrofitService
@@ -28,7 +33,6 @@ class TakeInternetData {
         }
         return listOfDataOrder
     }
-
 
     suspend fun getOrderAsync(idOrder: String?): DataModelOrder? {
         var dataModelOrder = DataModelOrder()
@@ -62,7 +66,6 @@ class TakeInternetData {
         return newModelOrderGoods
     }
 
-
     suspend fun saveDataOrder(retrofitDataModelOrderGlobal :RetrofitDataModelOrder) {
         coroutineScope {
             try {
@@ -72,6 +75,31 @@ class TakeInternetData {
                 Log.d("crashsaveData",
                     notUseFullException.printStackTrace().toString())   // or whatever logging
             }
+        }
+    }
+
+    suspend fun checkLogin(myCallback: (result: String) -> Unit)  {
+        coroutineScope {
+            val deferredResult = async {
+                val client = Common.okHttpClient
+                val request = Request.Builder()
+                    .url(Common.BASE_URL + "/bliznetsy_bitrix/hs/BitrixDelivery/Check")
+                    .build()
+                try {
+                    client.newCall(request).execute().use { response ->
+                        if (!response.isSuccessful) {
+                            return@async response.code().toString()
+                        }else{
+                            return@async response.code().toString()
+                        }
+                    }
+                } catch (e: IOException ) {
+                }
+                return@async ""
+            }
+            val result = deferredResult.await()
+
+            myCallback.invoke(result)
         }
     }
 

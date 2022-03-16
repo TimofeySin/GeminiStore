@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="HeaderBold20"   parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
     <style name="TextRegular14"   parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/roboto</item>
     </style>
     <style name="HeaderBold14"   parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
+    <style name="TextAlert"   parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">40dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
-
+    <style name="TextAlertName"   parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">30dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

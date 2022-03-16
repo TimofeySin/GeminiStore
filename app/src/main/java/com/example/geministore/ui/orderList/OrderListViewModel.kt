@@ -29,10 +29,6 @@ class OrderListViewModel : ViewModel() {
               _orderList.value = listOfDataOrder
               _refreshStatus.value =false
           }
-
-
     }
-
-
 }
 
