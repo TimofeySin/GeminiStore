@@ -19,62 +19,60 @@
 
             <TextView
                 android:id="@+id/good_description"
-                style="@style/HeaderBold20"
+                style="@style/HeaderBold14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/good_desc" />
-
-            <ImageView
-                android:id="@+id/good_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/good_images"
-                android:maxHeight="200dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_menu_camera" />
 
             <TextView
                 android:id="@+id/good_comment"
                 style="@style/TextRegular14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="8dp"
                 android:text="@string/good_comment" />
 
             <TextView
                 android:id="@+id/good_price"
                 style="@style/HeaderBold14"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8sp"
-                android:paddingBottom="8sp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:paddingTop="8dp"
                 android:text="@string/goods_price" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/good_total"
+                style="@style/TextRegular14"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:text="@string/goods_total" />
 
-                <Button
-                    android:id="@+id/button_clear"
-                    style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/transparent"
-                    android:insetTop="0sp"
-                    android:insetBottom="0sp"
-                    android:shadowColor="@android:color/transparent"
-                    android:text="@string/button_clear"
-                    android:textColor="@color/purple_700"
-                    app:iconPadding="0sp" />
+            <ImageView
+                android:id="@+id/good_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/good_images"
+                android:maxHeight="200dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_menu_camera" />
 
-                <TextView
-                    android:id="@+id/good_total"
-                    style="@style/TextRegular14"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="@string/goods_total" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/button_clear"
+                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:insetTop="0sp"
+                android:insetBottom="0sp"
+                android:shadowColor="@android:color/transparent"
+                android:text="@string/button_clear"
+                android:textColor="@color/purple_700"
+                app:iconPadding="0sp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

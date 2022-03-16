@@ -62,7 +62,8 @@ class UrovoConnectionService : Service() {
 
     private fun getBluetoothDevice(bluetoothAdapter: BluetoothAdapter): BluetoothDevice? {
         val deviceAddress = sharedPref(applicationContext).getDeviceID()
-        return bluetoothAdapter.getRemoteDevice(deviceAddress)
+        deviceAddress?.let{return bluetoothAdapter.getRemoteDevice(it)}
+        return null
     }
 
     private fun checkPermission(): Boolean {

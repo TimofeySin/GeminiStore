@@ -36,6 +36,9 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     private val _idOrder = MutableLiveData<String>().apply { value = "" }
     val idOrder: LiveData<String> = _idOrder
 
+    private val _commentGoods = MutableLiveData<String>().apply { value = "" }
+    val commentGoods: LiveData<String> = _commentGoods
+
     private val _orderGoods =
         MutableLiveData<MutableList<DataModelOrderGoods>>().apply { value = mutableListOf() }
     val orderGoods: LiveData<MutableList<DataModelOrderGoods>> = _orderGoods

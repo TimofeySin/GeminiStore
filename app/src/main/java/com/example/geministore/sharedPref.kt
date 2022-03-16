@@ -17,7 +17,7 @@ class sharedPref(private val contextApp: Context) {
 
     fun getDeviceID(): String? {
         val sharedPreference =  contextApp.getSharedPreferences(nameShared, Context.MODE_PRIVATE)
-        return sharedPreference.getString(deviceIDPref,"")
+        return sharedPreference.getString(deviceIDPref,null)
 
     }
 

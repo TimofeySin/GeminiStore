@@ -6,6 +6,8 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -39,7 +41,13 @@ class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataMode
         holder.nameGoods.text = arrayModelOrderGood[position].nameGoods
         holder.priceGoods.text = arrayModelOrderGood[position].priceGoods.toString()
         holder.totalGoods.text = quantityText(context,arrayModelOrderGood[position])
+        if (arrayModelOrderGood[position].commentGoods  =="")
+        {
+            holder.commentGoods.visibility = GONE
+        } else
+        {
         holder.commentGoods.text = arrayModelOrderGood[position].commentGoods
+        }
         ServiceGlide().getImage(arrayModelOrderGood[position].id,holder.imageGoods,context)
     }
 
