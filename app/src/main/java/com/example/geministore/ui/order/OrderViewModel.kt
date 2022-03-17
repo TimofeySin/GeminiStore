@@ -178,7 +178,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
 
     fun saveData() {
         retrofitDataModelOrderGlobal?.let {
-            CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.IO).launch {
                 TakeInternetData().saveDataOrder(it)
             }
         }

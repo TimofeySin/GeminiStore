@@ -38,9 +38,7 @@ class LoginFragment : Fragment() {
         loginViewModel.resultCheck.observe(viewLifecycleOwner) {
             if (it == "OK") {
                 _binding!!.Enter.findNavController().navigate(R.id.nav_order_list)
-            }
-
-            if (it != "") {
+            }else if (it != "") {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             }
         }
