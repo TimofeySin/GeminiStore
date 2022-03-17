@@ -19,9 +19,9 @@ import com.example.geministore.services.glide.ServiceGlide
 import com.example.geministore.ui.order.orderModels.DataModelOrderGoods
 
 
-class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataModelOrderGoods>) :
+class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataModelOrderGoods>, fragmentModel :OrderViewModel) :
     RecyclerView.Adapter<OrderRecyclerAdapter.MyViewHolder>() {
-
+    val fragmentModelNew = fragmentModel
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val priceGoods: TextView = itemView.findViewById(R.id.good_price)
         val totalGoods: TextView = itemView.findViewById(R.id.good_total)
@@ -29,6 +29,7 @@ class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataMode
         val commentGoods: TextView = itemView.findViewById(R.id.good_comment)
         val imageGoods: ImageView = itemView.findViewById(R.id.good_image)
         val buttonClear: Button = itemView.findViewById(R.id.button_clear)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -51,6 +52,7 @@ class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataMode
         ServiceGlide().getImage(arrayModelOrderGood[position].id, holder.imageGoods, context)
         holder.buttonClear.setOnClickListener {
             arrayModelOrderGood[position].completeGoods = 0F
+            fragmentModelNew.updateAdapter(1,position)
         }
     }
 

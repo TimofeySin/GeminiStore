@@ -1,6 +1,6 @@
 package com.example.geministore.services.retrofit
 
-import android.text.Editable
+
 import android.util.Log
 import com.example.geministore.ui.order.orderModels.DataModelOrder
 import com.example.geministore.ui.order.orderModels.DataModelOrderGoods
@@ -8,7 +8,6 @@ import com.example.geministore.ui.orderList.DataModelOrderList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.HttpException
 import java.io.IOException
@@ -83,7 +82,7 @@ class TakeInternetData {
             val deferredResult = async {
                 val client = Common.okHttpClient
                 val request = Request.Builder()
-                    .url(Common.BASE_URL + "/bliznetsy_bitrix/hs/BitrixDelivery/Check")
+                    .url(Common.BASE_URL + Common.REST_URL + "/Check")
                     .build()
                 try {
                     client.newCall(request).execute().use { response ->

@@ -7,14 +7,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaderFactory
 import com.bumptech.glide.load.model.LazyHeaders
+import com.example.geministore.services.retrofit.Autherificator
 import com.example.geministore.services.retrofit.Common
 
 
 class ServiceGlide {
-    private val server = "http://31.135.9.35"
-    private val url = "/bliznetsy/hs/BitrixDelivery/getImage"
-    private val username = "Android"
-    private val password = "123"
+    private val server = Common.BASE_URL
+    private val url = Common.REST_URL + "/getImage"
+
 
 
     fun getImage(code: String, imageView: ImageView, context: Context) {
@@ -29,7 +29,7 @@ class ServiceGlide {
 
     private fun getAuth() :LazyHeaders{
         return LazyHeaders.Builder()
-            .addHeader("Authorization", BasicAuthorization(username, password))
+            .addHeader("Authorization", Autherificator.credential)
             .build()
     }
 

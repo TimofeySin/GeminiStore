@@ -6,19 +6,17 @@ import retrofit2.http.*
 
 interface RetrofitServices {
 
-    @GET("/bliznetsy_bitrix/hs/BitrixDelivery/OrderList")
+    @GET(Common.REST_URL + "/OrderList")
     suspend fun getOrderListAsync(): Array<RetrofitDataModelOrderList>
 
-    @GET("/bliznetsy_bitrix/hs/BitrixDelivery/findGoods/")
-    suspend fun getGoodsAsync(@Query("idGoods") idGoods:String?): RetrofitDataModelOrderGoods
+    @GET(Common.REST_URL + "/findGoods/")
+    suspend fun getGoodsAsync(@Query("code") idGoods:String?): RetrofitDataModelOrderGoods
 
-    @GET("/bliznetsy_bitrix/hs/BitrixDelivery/Order/")
+    @GET(Common.REST_URL + "/Order/")
     suspend fun getOrderAsync(@Query("idOrder") idOrder:String?): RetrofitDataModelOrder
 
-    @POST("/bliznetsy_bitrix/hs/BitrixDelivery/Order/")
+    @POST(Common.REST_URL + "/Order/")
     @Headers("Content-Type: application/json")
     suspend fun saveOrder(@Body requestBody: RetrofitDataModelOrder?): Response<RetrofitDataModelOrder?>?
 
-    @GET("/bliznetsy_bitrix/hs/BitrixDelivery/Check")
-    suspend fun getCheck(): Boolean
 }

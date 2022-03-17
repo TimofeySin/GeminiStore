@@ -71,7 +71,7 @@
                 android:insetBottom="0sp"
                 android:shadowColor="@android:color/transparent"
                 android:text="@string/button_clear"
-                android:textColor="@color/purple_700"
+                android:textColor="@color/twins"
                 app:iconPadding="0sp" />
 
         </LinearLayout>

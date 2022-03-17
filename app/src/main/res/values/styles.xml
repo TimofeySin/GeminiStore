@@ -28,4 +28,9 @@
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/twins</item>
+        <item name="android:textColorSecondary">@color/twins</item>
+    </style>
 </resources>

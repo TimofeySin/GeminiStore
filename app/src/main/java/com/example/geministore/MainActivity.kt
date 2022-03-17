@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        window.navigationBarColor = getColor(R.color.twins)
+
         appBarConfiguration = AppBarConfiguration(setOf(
             R.id.nav_login, R.id.nav_order_list, R.id.nav_settings, R.id.nav_order), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)

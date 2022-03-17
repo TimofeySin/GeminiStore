@@ -1,9 +1,8 @@
 package com.example.geministore.ui.order
 
-
-import android.R
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -11,6 +10,7 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -64,7 +64,7 @@ class OrderFragment : Fragment() {
         }
 
         binding.addAlertButton.setOnClickListener {
-            orderViewModel.addNewGoods()
+            orderViewModel.addQuantityGoods()
             binding.alert.alpha = 0F
         }
 
@@ -84,7 +84,7 @@ class OrderFragment : Fragment() {
         val goodsList: RecyclerView = binding.orderGoods
         goodsList.layoutManager = LinearLayoutManager(context)
         orderViewModel.orderGoods.observe(viewLifecycleOwner) {
-            goodsList.adapter = OrderRecyclerAdapter(it)
+            goodsList.adapter = orderViewModelGlobal?.let { it1 -> OrderRecyclerAdapter(it, it1) }
         }
         orderViewModel.updaterAdapter.observe(viewLifecycleOwner) {
             when (it.action) {
@@ -93,6 +93,10 @@ class OrderFragment : Fragment() {
             }
             goodsList.adapter!!.notifyDataSetChanged()
         }
+
+        val progressBar: ProgressBar = binding.progressBar
+        orderViewModel.progressBar.observe(viewLifecycleOwner) { progressBar.visibility = it }
+
 
         val buttonLayout: LinearLayout = binding.buttonLayout
         val headAlert: TextView = binding.headAlert

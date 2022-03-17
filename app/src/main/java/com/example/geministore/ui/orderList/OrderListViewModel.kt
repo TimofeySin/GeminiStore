@@ -24,10 +24,10 @@ class OrderListViewModel : ViewModel() {
 
 
        fun fetchData() {
-          CoroutineScope(Dispatchers.Main).launch {
+          CoroutineScope(Dispatchers.IO).launch {
               val listOfDataOrder = TakeInternetData().getOrderListAsync()
-              _orderList.value = listOfDataOrder
-              _refreshStatus.value =false
+              _orderList.postValue(listOfDataOrder)
+              _refreshStatus.postValue(false)
           }
     }
 }

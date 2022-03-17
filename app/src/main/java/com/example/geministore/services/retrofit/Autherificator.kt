@@ -9,6 +9,6 @@ object Autherificator {
     var credential : String = ""
 
     fun setCredentials(login:String,pas:String){
-        credential =  Credentials.basic(login, pas, Charset.forName("UTF-8"))
+        credential =  Credentials.basic("Android", "123", Charset.forName("UTF-8"))
     }
 }
