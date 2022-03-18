@@ -23,10 +23,14 @@
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/menu/activity_main_drawer.xml" value="0.340625" />
         <entry key="..\:/ANDROID/GeminiStore/app/src/main/res/menu/main.xml" value="0.340625" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1645" />
+        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable/ic_frame_4.xml" value="0.108" />
+        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.16" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1645" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1645" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.2565" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable/side_nav_bar.xml" value="0.2565" />
+        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable/splash_screen.xml" value="0.2985" />
+        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable/splash_screen_background.xml" value="0.1305" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/drawable/twin_button.xml" value="0.2565" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/activity_main.xml" value="0.16304347826086957" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/app_bar_main.xml" value="0.26358695652173914" />
@@ -37,6 +41,7 @@
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/login_activity.xml" value="0.33" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/nav_header_main.xml" value="0.2223731884057971" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/order_goods_item.xml" value="0.25" />
+        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/order_list_item.xml" value="0.25" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/menu/activity_main_drawer.xml" value="0.309375" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/menu/main.xml" value="0.309375" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2125" />
