@@ -7,58 +7,86 @@ class RetrofitDataModelOrderGoods  {
 
     @SerializedName("price_good")
     @Expose
-    private val priceGoods: Float = 0.0F
+    private var priceGoods: Float = 0.0F
 
     fun getPriceGoods(): Float {
         return priceGoods
     }
+
+    fun setPriceGoods(value : Float) {
+         priceGoods = value
+    }
+
     @SerializedName("good_total")
     @Expose
-    private val totalGoods: Float = 0.0F
+    private var totalGoods: Float = 0.0F
 
     fun getTotalGoods(): Float {
         return totalGoods
     }
+
+    fun setTotalGoods(value : Float) {
+        totalGoods = value
+    }
+
     @SerializedName("good_complete")
     @Expose
-    private val completeGoods: Float = 0.0F
+    private var completeGoods: Float = 0.0F
 
     fun getCompleteGoods(): Float {
         return completeGoods
     }
 
+    fun setCompleteGoods(value : Float) {
+        completeGoods = value
+    }
 
     @SerializedName("name_goods")
     @Expose
-    private val nameGoods: String = ""
+    private var nameGoods: String = ""
 
     fun getNameGoods(): String {
         return nameGoods
     }
 
+    fun setNameGoods(value : String) {
+        nameGoods = value
+    }
+
     @SerializedName("comment_good")
     @Expose
-    private val commentGood: String = ""
+    private var commentGood: String = ""
 
     fun getCommentGoods(): String {
         return commentGood
     }
 
+    fun setCommentGoods(value : String) {
+        commentGood = value
+    }
+
     @SerializedName("id")
     @Expose
-    private val id: String = ""
+    private var id: String = ""
 
     fun getId(): String {
         return id
     }
 
+    fun setId(value : String) {
+        id = value
+    }
 
     @SerializedName("codes")
     @Expose
-    private val codes: Array<RetrofitDataModelCodes> = arrayOf(RetrofitDataModelCodes())
+    private var codes: Array<RetrofitDataModelCodes?> = arrayOf(RetrofitDataModelCodes())
 
-    fun getCodes():  Array<RetrofitDataModelCodes> {
+    fun getCodes():  Array<RetrofitDataModelCodes?> {
         return codes
+    }
+
+    fun setCodes(value :  Array<RetrofitDataModelCodes?>) {
+        codes = value
     }
 
 }

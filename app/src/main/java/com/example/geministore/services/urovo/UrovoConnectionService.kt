@@ -11,16 +11,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Binder
-import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.content.withStyledAttributes
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.geministore.MainActivity
-import com.example.geministore.sharedPref
+import com.example.geministore.SharedPref
 import kotlinx.coroutines.*
 import java.io.IOException
 import java.io.InputStream
@@ -61,7 +58,7 @@ class UrovoConnectionService : Service() {
     }
 
     private fun getBluetoothDevice(bluetoothAdapter: BluetoothAdapter): BluetoothDevice? {
-        val deviceAddress = sharedPref(applicationContext).getDeviceID()
+        val deviceAddress = SharedPref(applicationContext).getDeviceID()
         deviceAddress?.let{return bluetoothAdapter.getRemoteDevice(it)}
         return null
     }

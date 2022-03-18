@@ -138,7 +138,6 @@ class OrderFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        activity?.actionBar?.title = idOrder
         broadcastReceiver?.let {
             LocalBroadcastManager.getInstance(requireContext())
                 .registerReceiver(it, IntentFilter("ServiceBarcode"))

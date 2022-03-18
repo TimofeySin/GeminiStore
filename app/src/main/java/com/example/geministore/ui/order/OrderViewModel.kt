@@ -23,7 +23,6 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     @SuppressLint("StaticFieldLeak")
     private val contextApp = application.applicationContext
     private var dataModelOrder: DataModelOrder? = null
-    private var retrofitDataModelOrderGlobal: RetrofitDataModelOrder? = null
     private var workProgress = false
     private var newGoods: AddGoods? = null
 
@@ -121,7 +120,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                         buttonVisible = View.INVISIBLE,
                         alertVisible = View.VISIBLE,
                         headAlert = "",
-                        totalAlert = "${goods.goods!!.completeGoods + goods.quantity} $del ${goods.goods!!.totalGoods}",
+                        totalAlert = "${Math.round((goods.goods!!.completeGoods + goods.quantity) *1000F)/1000F} $del ${goods.goods!!.totalGoods}",
                         descAlert = goods.goods!!.nameGoods,
                         colorAlert = contextApp.getColor(R.color.green)
                     )
@@ -133,7 +132,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                         buttonVisible = View.VISIBLE,
                         alertVisible = View.VISIBLE,
                         headAlert = contextApp.getText(R.string.alert_add_new).toString(),
-                        totalAlert = "",
+                        totalAlert = goods.goods!!.completeGoods.toString(),
                         descAlert = goods.goods!!.nameGoods,
                         colorAlert = contextApp.getColor(R.color.red)
                     )
@@ -179,7 +178,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun saveData() {
-        retrofitDataModelOrderGlobal?.let {
+        dataModelOrder?.let {
             CoroutineScope(Dispatchers.IO).launch {
                 TakeInternetData().saveDataOrder(it)
             }
@@ -194,7 +193,9 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     fun addQuantityGoods() {
         newGoods?.let {
             if (it.position != 0) {
-                dataModelOrder!!.orderGoods[it.position].completeGoods += it.quantity
+                dataModelOrder!!.orderGoods[it.position].completeGoods +=it.quantity
+
+                dataModelOrder!!.orderGoods[it.position].completeGoods =  Math.round(dataModelOrder!!.orderGoods[it.position].completeGoods * 1000.0F) / 1000.0F
                 updateAdapter(1,it.position)
                 _updaterAdapter.postValue(UpdaterAdapter(1, it.position))
             } else {

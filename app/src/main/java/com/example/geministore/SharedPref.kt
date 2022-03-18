@@ -2,7 +2,7 @@ package com.example.geministore
 
 import android.content.Context
 
-class sharedPref(private val contextApp: Context) {
+class SharedPref(private val contextApp: Context) {
     private val nameShared = "gemini_store"
     private val deviceIDPref = "deviceID"
     private val deviceNamePref = "deviceName"

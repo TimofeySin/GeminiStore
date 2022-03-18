@@ -18,7 +18,7 @@ class AddGoods {
     suspend fun initGoods(code: String, order: DataModelOrder){
 
         if (code.substring(0, 2) == weightBarcode) {
-            quantity = code.substring(7, 12).toFloat() / 1000F
+            quantity = Math.round(code.substring(7, 12).toFloat()) / 1000F
             itWeight = true
             codeLocal = code.substring(2, 7)
         } else {
@@ -37,7 +37,7 @@ class AddGoods {
                         acceptAdd =
                             (!itWeight && itGood.totalGoods >= itGood.completeGoods + quantity) ||
                                     (itWeight && itGood.totalGoods * percentWeight >= itGood.completeGoods + quantity) ||
-                                    (!itWeight && itGood.totalGoods == 0F)
+                                    (itGood.totalGoods == 0F)
                     }
                 }
             }
@@ -50,9 +50,9 @@ class AddGoods {
     }
 
       private suspend fun fetchGoodsData(code: String) {
-
+         // dataModelOrder!!.orderGoods[it.position].completeGoods =  Math.round(dataModelOrder!!.orderGoods[it.position].completeGoods * 1000.0F) / 1000.0F
             goods = TakeInternetData().getGoodsAsync(code)
-            goods!!.completeGoods =quantity
+            goods!!.completeGoods =Math.round(quantity * 1000.0F) / 1000.0F
             acceptAdd = goods!!.id!=""
 
 

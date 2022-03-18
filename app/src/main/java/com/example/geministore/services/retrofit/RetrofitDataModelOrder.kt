@@ -7,34 +7,51 @@ class RetrofitDataModelOrder {
 
     @SerializedName("comment_client")
     @Expose
-    private val commentClient: String = ""
+    private var commentClient: String = ""
 
     fun getCommentClient(): String {
         return commentClient
     }
 
+    fun setCommentClient(value :String) {
+        commentClient = value
+    }
+
     @SerializedName("comment_order")
     @Expose
-    private val commentOrder: String = ""
+    private var commentOrder: String = ""
 
     fun getCommentOrder(): String {
         return commentOrder
     }
 
+    fun setCommentOrder(value :String) {
+        commentOrder = value
+    }
+
     @SerializedName("idOrder")
     @Expose
-    private val idOrder: String = ""
+    private var idOrder: String = ""
 
     fun getIdOrder(): String {
         return idOrder
     }
 
+    fun setIdOrder(value :String) {
+        idOrder = value
+    }
 
     @SerializedName("goods")
     @Expose
-    private val goods: Array<RetrofitDataModelOrderGoods> = arrayOf(RetrofitDataModelOrderGoods())
+    private var goods: Array<RetrofitDataModelOrderGoods?> = arrayOf(RetrofitDataModelOrderGoods())
 
-    fun getGoods():  Array<RetrofitDataModelOrderGoods> {
+    fun getGoods():  Array<RetrofitDataModelOrderGoods?> {
         return goods
     }
+
+    fun setGoods(value : Array<RetrofitDataModelOrderGoods?>)   {
+        goods = value
+    }
+
+
 }

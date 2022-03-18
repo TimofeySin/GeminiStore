@@ -37,11 +37,12 @@
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/content_main.xml" value="0.26358695652173914" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/fragment_login.xml" value="0.33" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/fragment_order.xml" value="0.25" />
+        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/fragment_order_list.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/fragment_setting_urovo.xml" value="0.33" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/login_activity.xml" value="0.33" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/nav_header_main.xml" value="0.2223731884057971" />
-        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/order_goods_item.xml" value="0.25" />
-        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/order_list_item.xml" value="0.25" />
+        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/order_goods_item.xml" value="0.33" />
+        <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/layout/order_list_item.xml" value="0.33" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/menu/activity_main_drawer.xml" value="0.309375" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/menu/main.xml" value="0.309375" />
         <entry key="..\:/Users/TimofeyS/StudioProjects/GeminiStore/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2125" />

@@ -65,7 +65,8 @@ class TakeInternetData {
         return newModelOrderGoods
     }
 
-    suspend fun saveDataOrder(retrofitDataModelOrderGlobal :RetrofitDataModelOrder) {
+    suspend fun saveDataOrder(dataModelOrderGlobal :DataModelOrder) {
+        val retrofitDataModelOrderGlobal = dataModelOrderGlobal.getRetrofitDataModelOrder()
         coroutineScope {
             try {
                 val res = apiService.saveOrder(retrofitDataModelOrderGlobal)

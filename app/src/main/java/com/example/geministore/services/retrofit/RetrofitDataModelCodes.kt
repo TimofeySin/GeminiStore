@@ -6,10 +6,13 @@ import com.google.gson.annotations.SerializedName
 class RetrofitDataModelCodes{
     @SerializedName("code")
     @Expose
-    private val code: String = ""
+    private var code: String = ""
 
     fun getCode(): String {
         return code
     }
 
+    fun setCode(value : String) {
+         code = value
+    }
 }
