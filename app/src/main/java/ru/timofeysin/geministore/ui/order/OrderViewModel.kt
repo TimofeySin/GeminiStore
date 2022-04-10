@@ -9,7 +9,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.work.OneTimeWorkRequest
-import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import ru.timofeysin.geministore.R
 import ru.timofeysin.geministore.services.retrofit.TakeInternetData
@@ -23,7 +22,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.timofeysin.geministore.services.uploadWorker.UploadWorker
-import java.util.concurrent.TimeUnit
+
 
 
 class OrderViewModel(application: Application) : AndroidViewModel(application) {
@@ -60,10 +59,10 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
         MutableLiveData<UpdaterAdapter>().apply { value = UpdaterAdapter(0, 0) }
     val updaterAdapter: LiveData<UpdaterAdapter> = _updaterAdapter
 
-    fun fetchData(idOrder: String?) {
+    fun fetchData(idOrder: String) {
         _progressBar.postValue(View.VISIBLE)
         CoroutineScope(Dispatchers.IO).launch {
-            dataModelOrder = TakeInternetData().getOrderAsync(idOrder)
+            dataModelOrder = TakeInternetData().getOrderAsync(idOrder,contextApp)
             dataModelOrder?.let {
                 _commentClient.postValue(it.commentClient)
                 _commentOrder.postValue(it.commentOrder)
@@ -189,7 +188,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
             CoroutineScope(Dispatchers.IO).launch {
                 val uploadM = UploadManager().getClientOrderUploadManager(it.getRetrofitDataModelOrder())
                 db.uploadManagerDAO.insert(uploadM)
-                
+
                 val myWorkRequest = OneTimeWorkRequest.Builder(UploadWorker::class.java).build()
                 WorkManager.getInstance().enqueue(myWorkRequest)
                 Log.d("DAOManager","WorkManager один запуск")
