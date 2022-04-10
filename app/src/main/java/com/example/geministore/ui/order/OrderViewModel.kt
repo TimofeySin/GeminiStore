@@ -10,6 +10,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.geministore.R
 import com.example.geministore.services.retrofit.RetrofitDataModelOrder
 import com.example.geministore.services.retrofit.TakeInternetData
+import com.example.geministore.services.roomSqlManager.UploadManager
+import com.example.geministore.services.roomSqlManager.UploadManagerDatabase
 import com.example.geministore.ui.order.orderModels.AddGoods
 import com.example.geministore.ui.order.orderModels.AlertModel
 import com.example.geministore.ui.order.orderModels.DataModelOrder
@@ -25,7 +27,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     private var dataModelOrder: DataModelOrder? = null
     private var workProgress = false
     private var newGoods: AddGoods? = null
-
+    private val db = UploadManagerDatabase.getInstance(contextApp)
     private val _progressBar = MutableLiveData<Int>().apply { value = View.INVISIBLE }
     var progressBar: LiveData<Int> = _progressBar
 
@@ -180,7 +182,10 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     fun saveData() {
         dataModelOrder?.let {
             CoroutineScope(Dispatchers.IO).launch {
-                TakeInternetData().saveDataOrder(it)
+                val uploadM = UploadManager().getClientOrderUploadManager(it.getRetrofitDataModelOrder())
+                db.uploadManagerDAO.insert(uploadM)
+
+               // TakeInternetData().saveDataOrder(it)
             }
         }
     }
@@ -188,7 +193,6 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     fun updateAdapter(action :Int,pos :Int){
         _updaterAdapter.postValue(UpdaterAdapter(action, pos))
     }
-
 
     fun addQuantityGoods() {
         newGoods?.let {

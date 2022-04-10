@@ -2,6 +2,9 @@ package com.example.geministore.services.retrofit
 
 
 import android.util.Log
+import com.example.geministore.services.roomSqlManager.UploadManager
+import com.example.geministore.services.roomSqlManager.UploadManagerDAO
+import com.example.geministore.services.roomSqlManager.UploadManagerDatabase
 import com.example.geministore.ui.order.orderModels.DataModelOrder
 import com.example.geministore.ui.order.orderModels.DataModelOrderGoods
 import com.example.geministore.ui.orderList.DataModelOrderList
@@ -14,6 +17,8 @@ import java.io.IOException
 
 class TakeInternetData {
     private val apiService = Common.makeRetrofitService
+
+
 
     suspend fun getOrderListAsync(): MutableList<DataModelOrderList> {
         val listOfDataOrder : MutableList<DataModelOrderList> = mutableListOf()
@@ -69,6 +74,10 @@ class TakeInternetData {
         val retrofitDataModelOrderGlobal = dataModelOrderGlobal.getRetrofitDataModelOrder()
         coroutineScope {
             try {
+                val uploadManager = UploadManager().getClientOrderUploadManager(retrofitDataModelOrderGlobal)
+
+
+
                 val res = apiService.saveOrder(retrofitDataModelOrderGlobal)
                 Log.d("crashsaveData", res.toString())
             } catch (notUseFullException: Exception) {
