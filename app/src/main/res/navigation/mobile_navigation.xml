@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_order_list"
-        android:name="com.example.geministore.ui.orderList.OrderListFragment"
+        android:name="ru.timofeysin.geministore.ui.orderList.OrderListFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_order_list" >
         <action
@@ -17,20 +17,20 @@
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.geministore.ui.urovo.UrovoFragment"
+        android:name="ru.timofeysin.geministore.ui.urovo.UrovoFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_setting_urovo" />
 
     <fragment
         android:id="@+id/nav_order"
-        android:name="com.example.geministore.ui.order.OrderFragment"
+        android:name="ru.timofeysin.geministore.ui.order.OrderFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_order"/>
 
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.example.geministore.ui.login.LoginFragment"
+        android:name="ru.timofeysin.geministore.ui.login.LoginFragment"
         android:label="@string/login"
         tools:layout="@layout/fragment_login"/>
 
