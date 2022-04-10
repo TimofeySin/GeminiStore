@@ -1,6 +1,7 @@
 package ru.timofeysin.geministore.services.retrofit
 
 
+import android.content.Context
 import android.util.Log
 import ru.timofeysin.geministore.services.roomSqlManager.UploadManager
 import ru.timofeysin.geministore.ui.order.orderModels.DataModelOrder
@@ -11,6 +12,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.Request
 import retrofit2.HttpException
+import ru.timofeysin.geministore.services.roomSqlManager.UploadManagerDatabase
 import java.io.IOException
 
 class TakeInternetData {
@@ -68,20 +70,27 @@ class TakeInternetData {
         return newModelOrderGoods
     }
 
-    suspend fun saveDataOrder(dataModelOrderGlobal :DataModelOrder) {
-        val retrofitDataModelOrderGlobal = dataModelOrderGlobal.getRetrofitDataModelOrder()
+    suspend fun saveDataOrder(context: Context) {
+        val db = UploadManagerDatabase.getInstance(context)
         coroutineScope {
             try {
-                val uploadManager = UploadManager().getClientOrderUploadManager(retrofitDataModelOrderGlobal)
-
-
-
-                val res = apiService.saveOrder(retrofitDataModelOrderGlobal)
-                Log.d("crashsaveData", res.toString())
+                var res = ""
+                val listOFOrders : List<UploadManager>? = db.uploadManagerDAO.getAllForUpload()
+                Log.d("DAOManager","getAllForUpload " + listOFOrders!!.size.toString() )
+                    listOFOrders!!.forEach() {
+                        res = apiService.saveOrder(it.jsonString)
+                        Log.d("DAOManager",res)
+                        if (res == "OK"){
+                            it.complete=true
+                            db.uploadManagerDAO.insert(it)
+                        }
+                    }
+                Log.d("crashsaveData", res)
             } catch (notUseFullException: Exception) {
                 Log.d("crashsaveData",
                     notUseFullException.printStackTrace().toString())   // or whatever logging
             }
+            db.uploadManagerDAO.deleteAllComplete()
         }
     }
 

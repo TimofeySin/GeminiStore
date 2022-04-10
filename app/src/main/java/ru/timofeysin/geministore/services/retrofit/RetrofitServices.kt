@@ -15,8 +15,8 @@ interface RetrofitServices {
     @GET(Common.REST_URL + "/Order/")
     suspend fun getOrderAsync(@Query("idOrder") idOrder:String?): RetrofitDataModelOrder
 
-    @POST(Common.REST_URL + "/Order/")
+    @POST(Common.REST_URL + "/SaveOrder/")
     @Headers("Content-Type: application/json")
-    suspend fun saveOrder(@Body requestBody: RetrofitDataModelOrder?): Response<RetrofitDataModelOrder?>?
+    suspend fun saveOrder(@Body requestBody: String): String
 
 }

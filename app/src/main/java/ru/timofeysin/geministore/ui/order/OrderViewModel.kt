@@ -3,10 +3,14 @@ package ru.timofeysin.geministore.ui.order
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.work.OneTimeWorkRequest
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import ru.timofeysin.geministore.R
 import ru.timofeysin.geministore.services.retrofit.TakeInternetData
 import ru.timofeysin.geministore.services.roomSqlManager.UploadManager
@@ -18,6 +22,8 @@ import ru.timofeysin.geministore.ui.order.orderModels.DataModelOrderGoods
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.timofeysin.geministore.services.uploadWorker.UploadWorker
+import java.util.concurrent.TimeUnit
 
 
 class OrderViewModel(application: Application) : AndroidViewModel(application) {
@@ -183,8 +189,10 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
             CoroutineScope(Dispatchers.IO).launch {
                 val uploadM = UploadManager().getClientOrderUploadManager(it.getRetrofitDataModelOrder())
                 db.uploadManagerDAO.insert(uploadM)
-
-               // TakeInternetData().saveDataOrder(it)
+                
+                val myWorkRequest = OneTimeWorkRequest.Builder(UploadWorker::class.java).build()
+                WorkManager.getInstance().enqueue(myWorkRequest)
+                Log.d("DAOManager","WorkManager один запуск")
             }
         }
     }
