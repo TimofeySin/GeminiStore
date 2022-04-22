@@ -1,4 +1,4 @@
-package ru.timofeysin.geministore.services.retrofit
+package ru.timofeysin.geministore.services.retrofit.order
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

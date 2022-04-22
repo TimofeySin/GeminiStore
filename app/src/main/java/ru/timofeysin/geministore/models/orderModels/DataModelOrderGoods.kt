@@ -1,7 +1,7 @@
-package ru.timofeysin.geministore.ui.order.orderModels
+package ru.timofeysin.geministore.models.orderModels
 
-import ru.timofeysin.geministore.services.retrofit.RetrofitDataModelCodes
-import ru.timofeysin.geministore.services.retrofit.RetrofitDataModelOrderGoods
+import ru.timofeysin.geministore.services.retrofit.order.RetrofitDataModelCodes
+import ru.timofeysin.geministore.services.retrofit.order.RetrofitDataModelOrderGoods
 
 class DataModelOrderGoods(orderGoods: RetrofitDataModelOrderGoods?) {
      var priceGoods: Float = 0.0F
@@ -27,7 +27,7 @@ class DataModelOrderGoods(orderGoods: RetrofitDataModelOrderGoods?) {
     }
 
 
-   fun getRetrofitDataModelOrderGoods() :RetrofitDataModelOrderGoods{
+   fun getRetrofitDataModelOrderGoods() : RetrofitDataModelOrderGoods {
        val  retrofitDataModelOrderGoods = RetrofitDataModelOrderGoods()
        retrofitDataModelOrderGoods.setCommentGoods(commentGoods)
        retrofitDataModelOrderGoods.setCompleteGoods(completeGoods)

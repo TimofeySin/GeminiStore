@@ -7,6 +7,7 @@ import ru.timofeysin.geministore.services.retrofit.TakeInternetData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.timofeysin.geministore.models.orderListModel.DataModelOrderList
 
 
 class OrderListViewModel : ViewModel() {

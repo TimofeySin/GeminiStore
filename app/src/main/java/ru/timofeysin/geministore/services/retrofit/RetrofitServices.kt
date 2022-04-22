@@ -1,7 +1,9 @@
 package ru.timofeysin.geministore.services.retrofit
 
-import retrofit2.Response
 import retrofit2.http.*
+import ru.timofeysin.geministore.services.retrofit.order.RetrofitDataModelOrder
+import ru.timofeysin.geministore.services.retrofit.order.RetrofitDataModelOrderGoods
+import ru.timofeysin.geministore.services.retrofit.orderList.RetrofitDataModelOrderList
 
 
 interface RetrofitServices {

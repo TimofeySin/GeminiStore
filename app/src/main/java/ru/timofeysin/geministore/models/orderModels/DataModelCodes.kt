@@ -1,6 +1,6 @@
-package ru.timofeysin.geministore.ui.order.orderModels
+package ru.timofeysin.geministore.models.orderModels
 
-import ru.timofeysin.geministore.services.retrofit.RetrofitDataModelCodes
+import ru.timofeysin.geministore.services.retrofit.order.RetrofitDataModelCodes
 
 class DataModelCodes(code: RetrofitDataModelCodes?) {
     var code: String = ""

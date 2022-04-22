@@ -1,6 +1,6 @@
-package ru.timofeysin.geministore.ui.orderList
+package ru.timofeysin.geministore.models.orderListModel
 
-import ru.timofeysin.geministore.services.retrofit.RetrofitDataModelOrderList
+import ru.timofeysin.geministore.services.retrofit.orderList.RetrofitDataModelOrderList
 
 class DataModelOrderList(retrofit : RetrofitDataModelOrderList) {
 var clientName  = ""

@@ -1,4 +1,4 @@
-package ru.timofeysin.geministore.ui.order.orderModels
+package ru.timofeysin.geministore.models.orderModels
 
 class AlertModel(
     buttonVisible: Int,

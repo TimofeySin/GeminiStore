@@ -1,7 +1,7 @@
 package ru.timofeysin.geministore.services.roomSqlManager
 
 import androidx.room.*
-import ru.timofeysin.geministore.services.retrofit.RetrofitDataModelOrder
+import ru.timofeysin.geministore.services.retrofit.order.RetrofitDataModelOrder
 import com.google.gson.Gson
 
 

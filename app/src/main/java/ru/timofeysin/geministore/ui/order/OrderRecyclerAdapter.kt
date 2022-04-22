@@ -15,7 +15,7 @@ import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import ru.timofeysin.geministore.R
 import ru.timofeysin.geministore.services.glide.ServiceGlide
-import ru.timofeysin.geministore.ui.order.orderModels.DataModelOrderGoods
+import ru.timofeysin.geministore.models.orderModels.DataModelOrderGoods
 
 
 class OrderRecyclerAdapter(private val arrayModelOrderGood: MutableList<DataModelOrderGoods>, fragmentModel :OrderViewModel) :

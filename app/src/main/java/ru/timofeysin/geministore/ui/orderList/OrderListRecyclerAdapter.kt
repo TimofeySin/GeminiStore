@@ -21,7 +21,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
 import ru.timofeysin.geministore.R
-
+import ru.timofeysin.geministore.models.orderListModel.DataModelOrderList
 
 
 class OrderListRecyclerAdapter(private val arrayModelOrderListRetrofit: MutableList<DataModelOrderList>) :

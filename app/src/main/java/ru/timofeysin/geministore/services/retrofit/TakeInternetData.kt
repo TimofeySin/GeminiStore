@@ -5,14 +5,15 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import ru.timofeysin.geministore.services.roomSqlManager.UploadManager
-import ru.timofeysin.geministore.ui.order.orderModels.DataModelOrder
-import ru.timofeysin.geministore.ui.order.orderModels.DataModelOrderGoods
-import ru.timofeysin.geministore.ui.orderList.DataModelOrderList
+import ru.timofeysin.geministore.models.orderModels.DataModelOrder
+import ru.timofeysin.geministore.models.orderModels.DataModelOrderGoods
+import ru.timofeysin.geministore.models.orderListModel.DataModelOrderList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.Request
 import retrofit2.HttpException
+import ru.timofeysin.geministore.services.retrofit.order.RetrofitDataModelOrder
 import ru.timofeysin.geministore.services.roomSqlManager.OrderType
 import ru.timofeysin.geministore.services.roomSqlManager.UploadManagerDatabase
 import java.io.IOException
@@ -50,7 +51,8 @@ class TakeInternetData {
                 val retrofitDataModelOrder = apiService.getOrderAsync(idOrder)
                 dataModelOrder = DataModelOrder(retrofitDataModelOrder)
                 }else{
-                    val retrofitDataModelOrder =  Gson().fromJson(roomRes.jsonString,RetrofitDataModelOrder::class.java)
+                    val retrofitDataModelOrder =  Gson().fromJson(roomRes.jsonString,
+                        RetrofitDataModelOrder::class.java)
                     dataModelOrder = DataModelOrder(retrofitDataModelOrder)
                 }
             } catch (notUseFullException: Exception) {

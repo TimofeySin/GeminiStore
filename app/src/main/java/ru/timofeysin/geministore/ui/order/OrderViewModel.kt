@@ -14,10 +14,10 @@ import ru.timofeysin.geministore.R
 import ru.timofeysin.geministore.services.retrofit.TakeInternetData
 import ru.timofeysin.geministore.services.roomSqlManager.UploadManager
 import ru.timofeysin.geministore.services.roomSqlManager.UploadManagerDatabase
-import ru.timofeysin.geministore.ui.order.orderModels.AddGoods
-import ru.timofeysin.geministore.ui.order.orderModels.AlertModel
-import ru.timofeysin.geministore.ui.order.orderModels.DataModelOrder
-import ru.timofeysin.geministore.ui.order.orderModels.DataModelOrderGoods
+import ru.timofeysin.geministore.models.orderModels.AddGoods
+import ru.timofeysin.geministore.models.orderModels.AlertModel
+import ru.timofeysin.geministore.models.orderModels.DataModelOrder
+import ru.timofeysin.geministore.models.orderModels.DataModelOrderGoods
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

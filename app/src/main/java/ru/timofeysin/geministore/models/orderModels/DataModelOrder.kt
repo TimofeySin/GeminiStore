@@ -1,7 +1,7 @@
-package ru.timofeysin.geministore.ui.order.orderModels
+package ru.timofeysin.geministore.models.orderModels
 
-import ru.timofeysin.geministore.services.retrofit.RetrofitDataModelOrder
-import ru.timofeysin.geministore.services.retrofit.RetrofitDataModelOrderGoods
+import ru.timofeysin.geministore.services.retrofit.order.RetrofitDataModelOrder
+import ru.timofeysin.geministore.services.retrofit.order.RetrofitDataModelOrderGoods
 
 
 class DataModelOrder(modelOrder: RetrofitDataModelOrder) {

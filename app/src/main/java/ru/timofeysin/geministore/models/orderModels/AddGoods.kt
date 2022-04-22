@@ -1,4 +1,4 @@
-package ru.timofeysin.geministore.ui.order.orderModels
+package ru.timofeysin.geministore.models.orderModels
 
 import ru.timofeysin.geministore.services.retrofit.TakeInternetData
 
